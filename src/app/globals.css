@@ -283,6 +283,11 @@ nav.at-top .theme-toggle-handle {
   background: #ffffff !important;
 }
 
+.dark .theme-toggle-handle {
+  background: #1f1f24 !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+}
+
 /* Light mode at-top state overrides */
 nav.at-top .theme-toggle-new .sun-icon {
   color: #111114 !important;

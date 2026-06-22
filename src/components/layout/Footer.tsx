@@ -76,6 +76,13 @@ export default function Footer() {
           margin-bottom: 2.5rem;
           transition: background var(--transition);
         }
+
+        .footer-logo-text {
+          font-family: var(--font-sans), sans-serif;
+          /*font-family: var(--font-display), sans-serif;
+          font-size: 1rem;*/
+          font-style: italic; 
+        }
         .footer-container {
           display: flex;
           align-items: center;
@@ -86,7 +93,7 @@ export default function Footer() {
         .footer-logo-link {
           display: flex;
           align-items: center;
-          gap: 0.6rem;
+          gap: 0.4rem;
           text-decoration: none;
           color: var(--color-text);
           font-family: var(--font-display), sans-serif;

@@ -52,17 +52,17 @@ function RenderText({ section }: { section: SectionText }) {
     <ScrollReveal>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         {paragraphs.map((para, i) => (
-          <p
+          <div
             key={i}
+            className="case-study-html-content"
             style={{
               color: 'var(--color-text-muted)',
               lineHeight: 1.8,
               fontSize: '0.97rem',
               margin: 0,
             }}
-          >
-            {para}
-          </p>
+            dangerouslySetInnerHTML={{ __html: para }}
+          />
         ))}
       </div>
     </ScrollReveal>
@@ -153,9 +153,8 @@ function RenderList({ section }: { section: SectionList }) {
             lineHeight: 1.75,
             fontSize: '0.97rem',
           }}
-        >
-          {item}
-        </li>
+          dangerouslySetInnerHTML={{ __html: item }}
+        />
       ))}
     </Tag>
   );
@@ -270,16 +269,16 @@ function RenderPrinciple({ section }: { section: SectionPrinciple }) {
       >
         {section.label}
       </span>
-      <p
+      <div
+        className="case-study-html-content"
         style={{
           color: 'var(--color-text-muted)',
           lineHeight: 1.75,
           fontSize: '0.9rem',
           margin: 0,
         }}
-      >
-        {section.content}
-      </p>
+        dangerouslySetInnerHTML={{ __html: section.content }}
+      />
     </div>
   );
 }
@@ -337,16 +336,16 @@ function RenderReflection({ section }: { section: SectionReflection }) {
             >
               {item.title}
             </p>
-            <p
+            <div
+              className="case-study-html-content"
               style={{
                 color: 'var(--color-text-muted)',
                 lineHeight: 1.75,
                 fontSize: '0.9rem',
                 margin: 0,
               }}
-            >
-              {item.content}
-            </p>
+              dangerouslySetInnerHTML={{ __html: item.content }}
+            />
           </div>
         </div>
       ))}
@@ -531,7 +530,7 @@ export default function CaseStudyClient({ study }: CaseStudyClientProps) {
                   marginTop: '2rem',
                   background: 'var(--color-bg-2)',
                   border: '1px solid var(--color-border)',
-                  
+
                 }}
               >
                 <p
@@ -580,6 +579,57 @@ export default function CaseStudyClient({ study }: CaseStudyClientProps) {
 
       <style>{`
         .toggle-btn:hover { background: var(--color-bg-3) !important; }
+        
+        .case-study-html-content b,
+        .case-study-html-content strong {
+          color: var(--color-text);
+          font-weight: 700;
+        }
+        .case-study-html-content i,
+        .case-study-html-content em {
+          font-style: italic;
+        }
+        .case-study-html-content h1,
+        .case-study-html-content h2,
+        .case-study-html-content h3,
+        .case-study-html-content h4,
+        .case-study-html-content h5,
+        .case-study-html-content h6 {
+          font-family: var(--font-sans), sans-serif;
+          color: var(--color-text);
+          font-weight: 800;
+          line-height: 1.25;
+          margin-top: 1.5rem;
+          margin-bottom: 0.5rem;
+        }
+        .case-study-html-content h1 { font-size: 1.8rem; }
+        .case-study-html-content h2 { font-size: 1.6rem; }
+        .case-study-html-content h3 { font-size: 1.4rem; }
+        .case-study-html-content h4 { font-size: 1.2rem; }
+        .case-study-html-content h5 { font-size: 1.1rem; }
+        .case-study-html-content h6 { font-size: 1.0rem; }
+        
+        .case-study-html-content ul {
+          list-style-type: disc;
+          padding-left: 1.5rem;
+          margin: 0.5rem 0;
+          display: flex;
+          flex-direction: column;
+          gap: 0.4rem;
+        }
+        .case-study-html-content ol {
+          list-style-type: decimal;
+          padding-left: 1.5rem;
+          margin: 0.5rem 0;
+          display: flex;
+          flex-direction: column;
+          gap: 0.4rem;
+        }
+        .case-study-html-content li {
+          color: var(--color-text-muted);
+          line-height: 1.75;
+          font-size: 0.97rem;
+        }
       `}</style>
     </>
   );

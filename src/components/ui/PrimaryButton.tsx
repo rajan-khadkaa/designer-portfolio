@@ -25,7 +25,7 @@ export default function PrimaryButton({
     <button
       disabled={chkBtnDisabled}
       onClick={btnClick}
-      className={`group cursor-pointer relative overflow-hidden px-8 py-4 flex items-center justify-center gap-1.5 bg-white dark:bg-black text-black dark:text-white border border-black/10 dark:border-white/10 transition-colors duration-500 disabled:opacity-50 disabled:cursor-not-allowed ${CustomStyle}`}
+      className={`group cursor-pointer relative overflow-hidden px-8 py-4 flex items-center justify-center gap-1.5 bg-white dark:bg-[#1c1c21] text-black dark:text-white border border-black/10 dark:border-white/10 transition-colors duration-500 disabled:opacity-50 disabled:cursor-not-allowed ${CustomStyle}`}
       style={{ borderRadius: 0 }}
     >
       {/* Expanding Dot Background Animation */}

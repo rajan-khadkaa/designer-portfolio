@@ -19,7 +19,7 @@ export default function ThemeToggle() {
       <motion.div
         className="theme-toggle-handle"
         animate={{
-          x: isDark ? 0 : 34,
+          x: isDark ? 0 : 32,
         }}
         transition={{ type: 'spring', stiffness: 300, damping: 24 }}
       />
@@ -28,6 +28,9 @@ export default function ThemeToggle() {
       <span
         className="moon-icon z-10 flex items-center justify-center transition-opacity duration-300"
         style={{
+          position: 'absolute',
+          left: '4px',
+          top: '4px',
           width: '24px',
           height: '24px',
           opacity: isDark ? 1 : 0.55,
@@ -35,8 +38,8 @@ export default function ThemeToggle() {
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="13"
-          height="13"
+          width="14"
+          height="14"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -52,6 +55,9 @@ export default function ThemeToggle() {
       <span
         className="sun-icon z-10 flex items-center justify-center transition-opacity duration-300"
         style={{
+          position: 'absolute',
+          right: '4px',
+          top: '4px',
           width: '24px',
           height: '24px',
           opacity: !isDark ? 1 : 0.55,
@@ -59,8 +65,8 @@ export default function ThemeToggle() {
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="13"
-          height="13"
+          width="14"
+          height="14"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"

@@ -89,14 +89,12 @@ const safetrack: CaseStudy = {
   slug: "safetrack",
   title: "Safetrack",
   tag: "Mobile App Design",
-  // Replace with actual hero/banner image export from Figma when ready.
   heroImage: "/case study resources/safetrack/bg.png",
   metadata: {
     role: "UX Researcher & UI Designer",
     duration: "3 weeks",
     tools: "Figma",
     type: "Mobile App Design",
-    // status: 'Completed',
   },
   readTime: "8 min",
   readType: "Deep Dive",
@@ -131,11 +129,10 @@ const safetrack: CaseStudy = {
     {
       type: "text",
       content:
-        "Who I talked to\n\nI interviewed 8 people from my close circle, family members and neighbors who are parents with school-going children. I chose this approach deliberately. I knew that parents in my context would speak more openly in a familiar, low-pressure setting than in something that felt like a formal study. I wanted honest answers, not polished ones.\n\nI kept the interviews conversational. I asked them about their typical morning routine, what stresses them out about their child's school day, what tools they currently use, and what frustrates them about those tools. I did not lead them toward any particular answer. I just listened.",
+        "<b>Who I talked to</b>\n\nI interviewed 8 people from my close circle, family members and neighbors who are parents with school-going children. I chose this approach deliberately. I knew that parents in my context would speak more openly in a familiar, low-pressure setting than in something that felt like a formal study. I wanted honest answers, not polished ones.\n\nI kept the interviews conversational. I asked them about their typical morning routine, what stresses them out about their child's school day, what tools they currently use, and what frustrates them about those tools. I did not lead them toward any particular answer. I just listened.",
     },
     {
       type: "image",
-      // Replace with actual sticky notes export from Figma or Notion when ready.
       src: "/case study resources/safetrack/safetrack-notes-unorganized.png",
       alt: "Sticky notes from 8 parent interviews",
       caption:
@@ -144,7 +141,7 @@ const safetrack: CaseStudy = {
     {
       type: "text",
       content:
-        "What I heard\n\nAcross all 8 interviews, a few things kept coming up again and again:",
+        "<b>What I heard</b>\n\nAcross all 8 interviews, a few things kept coming up again and again:",
     },
     {
       type: "list",
@@ -160,11 +157,10 @@ const safetrack: CaseStudy = {
     {
       type: "text",
       content:
-        "Finding the patterns\n\nAfter the interviews, I organized everything I had heard into groups. This helped me see which problems were most common, which were most urgent, and which were connected to each other.",
+        "<b>Finding the patterns</b>\n\nAfter the interviews, I organized everything I had heard into groups. This helped me see which problems were most common, which were most urgent, and which were connected to each other.",
     },
     {
       type: "image",
-      // Replace with actual grouped sticky notes export from Figma or Notion when ready.
       src: "/case study resources/safetrack/safetrack-notes-organized.png",
       alt: "Interview findings grouped into four themes",
       caption:
@@ -218,7 +214,6 @@ const safetrack: CaseStudy = {
     },
     {
       type: "image",
-      // Replace with actual user flow diagram export from Figma showing onboarding, daily use, and panic mode paths when ready.
       src: "/case study resources/safetrack/safetrack-flowchart.png",
       alt: "User flow diagram for Safetrack",
       caption:
@@ -264,7 +259,6 @@ const safetrack: CaseStudy = {
     },
     {
       type: "image",
-      // Replace with actual low-fidelity wireframe grid export from Figma showing all key screens in grayscale when ready.
       src: "/case study resources/safetrack/low-fidelity.png",
       alt: "Low fidelity wireframes for Safetrack",
       caption:
@@ -283,12 +277,12 @@ const safetrack: CaseStudy = {
     {
       type: "text",
       content:
-        "I tested the wireframe prototype with 5 people. Three of them were from my original interview group and two were people who had not been involved in the project at all. I wanted the familiar group to check whether I had actually addressed their concerns, and I wanted the new group to tell me if the app made sense to someone with no prior context.\n\nI gave each person four tasks:\n\n1. Find out what time school closes today.\n2. Check if there are any events this week.\n3. Locate your child on the map.\n4. Find the school's emergency contact number.\n\nI watched them try to complete each task without helping them. I only asked follow-up questions after each task was done.",
+        "I tested the wireframe prototype with 5 people. Three of them were from my original interview group and two were people who had not been involved in the project at all. I wanted the familiar group to check whether I had actually addressed their concerns, and I wanted the new group to tell me if the app made sense to someone with no prior context.\n\nI gave each person four tasks:\n\n<ol><li>Find out what time school closes today.</li><li>Check if there are any events this week.</li><li>Locate your child on the map.</li><li>Find the school's emergency contact number.</li></ol>\n\nI watched them try to complete each task without helping them. I only asked follow-up questions after each task was done.",
     },
     {
       type: "text",
       content:
-        'Feedback I received\n\nOne participant was not happy with the home screen. In my wireframes I had used a card carousel where different pieces of summary information were on separate swipeable cards. He said having to swipe felt like extra work when all he wanted was a quick overview. He would rather see everything at once even if it meant more content on screen.\n\nThis was direct feedback against my own wireframe decision, and he was right. A carousel on the home screen directly contradicted my "glanceable by default" principle. I had written the principle and then broken it in my own design. I appreciated that he caught it.\n\nAnother participant had a strong reaction to the panic page. My wireframe had a large warning icon centered on the screen above the alert information. He said the icon would make him panic before he had even read what the alert was about. He felt a large danger symbol on his screen would make him assume the worst before he knew the facts.\n\nAgain, this directly contradicted my "inform, not alarm" principle. The icon was supposed to communicate urgency. Instead it was communicating danger. There is a difference.',
+        "<b>Feedback I received</b>\n\nOne participant was not happy with the home screen. In my wireframes I had used a card carousel where different pieces of summary information were on separate swipeable cards. He said having to swipe felt like extra work when all he wanted was a quick overview. He would rather see everything at once even if it meant more content on screen.\n\nThis was direct feedback against my own wireframe decision, and he was right. A carousel on the home screen directly contradicted my \"glanceable by default\" principle. I had written the principle and then broken it in my own design. I appreciated that he caught it.\n\nAnother participant had a strong reaction to the panic page. My wireframe had a large warning icon centered on the screen above the alert information. He said the icon would make him panic before he had even read what the alert was about. He felt a large danger symbol on his screen would make him assume the worst before he knew the facts.\n\nAgain, this directly contradicted my \"inform, not alarm\" principle. The icon was supposed to communicate urgency. Instead it was communicating danger. There is a difference.",
     },
     {
       type: "heading",
@@ -302,13 +296,11 @@ const safetrack: CaseStudy = {
     },
     {
       type: "text",
-      content: "Home screen iteration",
+      content: "<b>Home screen iteration</b>",
     },
     {
       type: "before-after",
-      // Replace imageBefore with actual "card carousel" home screen wireframe export when ready.
       imageBefore: "/case study resources/safetrack/iteration-issue-1.png",
-      // Replace imageAfter with actual revised "static summary view" home screen export when ready.
       imageAfter: "/case study resources/safetrack/iteration-solve-1.png",
       beforeLabel: "Card carousel",
       afterLabel: "Static summary view",
@@ -322,13 +314,11 @@ const safetrack: CaseStudy = {
     },
     {
       type: "text",
-      content: "Panic page iteration",
+      content: "<b>Panic page iteration</b>",
     },
     {
       type: "before-after",
-      // Replace imageBefore with actual "icon-first layout" panic page wireframe export when ready.
       imageBefore: "/case study resources/safetrack/iteration-issue-2.png",
-      // Replace imageAfter with actual revised panic page export when ready.
       imageAfter: "/case study resources/safetrack/iteration-solve-2.png",
       beforeLabel: "Icon-first layout",
       afterLabel: "Information-first layout",
@@ -347,7 +337,6 @@ const safetrack: CaseStudy = {
     },
     {
       type: "image",
-      // Replace with actual onboarding and feature carousel export from Figma when ready.
       src: "/case study resources/safetrack/1-welcome-features.png",
       alt: "Onboarding and feature highlights",
       caption:
@@ -355,7 +344,6 @@ const safetrack: CaseStudy = {
     },
     {
       type: "image",
-      // Replace with actual sign in, sign up, and password reset export from Figma when ready.
       src: "/case study resources/safetrack/2-signin-signup.png",
       alt: "Sign in and sign up screens",
       caption:
@@ -363,14 +351,12 @@ const safetrack: CaseStudy = {
     },
     {
       type: "image",
-      // Replace with actual add child screen export from Figma when ready.
       src: "/case study resources/safetrack/3-child-info.png",
       alt: "Add child information screens",
       caption: "Add a child's name, age, and photo to set up their profile.",
     },
     {
       type: "image",
-      // Replace with actual mark locations export from Figma when ready.
       src: "/case study resources/safetrack/4-mark-locations.png",
       alt: "Mark locations screens",
       caption:
@@ -378,14 +364,12 @@ const safetrack: CaseStudy = {
     },
     {
       type: "image",
-      // Replace with actual institutional info and token verification export from Figma when ready.
       src: "/case study resources/safetrack/5-institute-info.png",
       alt: "Add institutional information screens",
       caption: "Add school details and verify with a token sent by the school.",
     },
     {
       type: "image",
-      // Replace with actual dashboard and location screens export from Figma when ready.
       src: "/case study resources/safetrack/6-dashboard-map.png",
       alt: "Dashboard and location screens",
       caption:
@@ -393,14 +377,12 @@ const safetrack: CaseStudy = {
     },
     {
       type: "image",
-      // Replace with actual schedule and events screens export from Figma when ready.
       src: "/case study resources/safetrack/7-schedule-events.png",
       alt: "Schedule and events screens",
       caption: "Routine and Events tabs, with today's class list.",
     },
     {
       type: "image",
-      // Replace with actual history and profile screens export from Figma when ready.
       src: "/case study resources/safetrack/8-history-profile.png",
       alt: "History and profile screens",
       caption:
@@ -408,7 +390,6 @@ const safetrack: CaseStudy = {
     },
     {
       type: "image",
-      // Replace with actual emergency / panic mode screens export from Figma when ready.
       src: "/case study resources/safetrack/9-safety-panic.png",
       alt: "Panic mode screens",
       caption:
@@ -454,19 +435,17 @@ const hrms: CaseStudy = {
   slug: "hrms",
   title: "HRMS",
   tag: "Web Application Design",
-  // Replace with actual hero/banner image export from Figma when ready.
   heroImage: "/case study resources/hrms/bg.png",
   metadata: {
     role: "UX Researcher & UI Designer",
     duration: "3 weeks",
     tools: "Figma",
     type: "Web Application Design",
-    // status: 'Completed',
   },
   readTime: "9 min",
   readType: "Deep Dive",
   summary:
-    "HRMS is a web-based HR management system designed to connect recruitment, employee management, and payroll workflows in one place. Research showed that HR teams were not lacking features. They were struggling with disconnected, manual steps that caused errors and delays. A key design challenge was making the resigned role handoff automatic, so vacant positions get flagged right away instead of falling through the cracks. Testing showed the dashboard needed an overall attendance view alongside individual records, which was added in iteration.",
+    "HRMS is a web-based HR management system designed to connect recruitment, employee management, and payroll workflows in one place. Research showed that HR teams were not lacking features. They were struggling with disconnected, manual steps that caused errors and delays. A key design challenge was making the resigned role handoff visible, so vacant positions get flagged right away instead of falling through the cracks. Testing showed the dashboard needed an overall attendance view alongside individual records, which was added in iteration.",
   sections: [
     {
       type: "heading",
@@ -496,7 +475,7 @@ const hrms: CaseStudy = {
     {
       type: "text",
       content:
-        "What I needed to find out\n\nRather than starting with open-ended interviews, I structured my research around specific questions that I knew I needed answers to before I could make design decisions:",
+        "<b>What I needed to find out</b>\n\nRather than starting with open-ended interviews, I structured my research around specific questions that I knew I needed answers to before I could make design decisions:",
     },
     {
       type: "list",
@@ -513,7 +492,7 @@ const hrms: CaseStudy = {
     {
       type: "text",
       content:
-        "How I researched\n\nI looked at several existing HR tools including Workday, BambooHR, and Zoho People. I went through their interfaces, read user reviews, and noted where people consistently praised them and where they consistently complained. I also talked informally with HR colleagues and people I knew who worked in HR departments. These conversations were less formal than structured interviews but gave me real, specific examples of what the daily frustration actually looked like in practice.",
+        "<b>How I researched</b>\n\nI looked at several existing HR tools including Workday, BambooHR, and Zoho People. I went through their interfaces, read user reviews, and noted where people consistently praised them and where they consistently complained. I also talked informally with HR colleagues and people I knew who worked in HR departments. These conversations were less formal than structured interviews but gave me real, specific examples of what the daily frustration actually looked like in practice.",
     },
     {
       type: "heading",
@@ -551,7 +530,6 @@ const hrms: CaseStudy = {
     },
     {
       type: "image",
-      // Replace with actual HRMS user flow diagram export from Figma when ready.
       src: "/case study resources/hrms/hrms-flowchart.png",
       alt: "HRMS user flow diagram",
       caption: "How a user moves from landing page to dashboard and beyond.",
@@ -568,16 +546,14 @@ const hrms: CaseStudy = {
     },
     {
       type: "image",
-      // Replace with actual HRMS low-fidelity wireframe grid export from Figma in grayscale when ready.
       src: "/case study resources/hrms/low-fidelity.png",
       alt: "Low fidelity wireframes for HRMS",
-      caption:
-        "Wireframes for the dashboard, employee list, login, landing page, and 404.",
+      caption: "Wireframes for the dashboard, employee list, login, landing page, and 404.",
     },
     {
       type: "text",
       content:
-        "A few decisions that shaped the final design:\n\nThe dashboard would show summary cards only, one per major area: recruitment, employees, payroll, attendance. No live data tables on the dashboard itself. The dashboard is for a quick overview, and detailed data belongs on its own page with its own controls.\n\nThe employee list would be a dense data table, since that is the easiest format for working through a large number of records on a desktop screen. Filters and search sit at the top, and quick actions live inline on each row so common tasks like viewing a profile or editing a record do not need a separate page.",
+        "A few decisions that shaped the final design:\n\nThe dashboard would show summary cards only, one per major area: recruitment, employees, payroll, attendance. No live data tables on the dashboard itself. The dashboard is for a quick overview, and detailed data belongs on its own page with its own controls.\n\nThe recruitment section was split into two views. A list view shows all open roles with their applicant counts and pipeline status. Drilling into a role opens a Kanban-style pipeline board where every candidate is a card and every column is a hiring stage, from initial interview through technical test to final interview and hired. An HR manager can see the full picture at a glance without navigating away.\n\nThe employee list, attendance, and tasks pages all follow the same pattern: summary cards at the top for quick totals, and a data table below with filters, search, and inline actions on each row so common tasks do not require a separate page.",
     },
     {
       type: "heading",
@@ -586,11 +562,10 @@ const hrms: CaseStudy = {
     },
     {
       type: "text",
-      content: "Typography",
+      content: "<b>Typography</b>",
     },
     {
       type: "image",
-      // Replace with actual typography scale export from Figma showing heading, body, label sizes with font name and weights when ready.
       src: "/case study resources/hrms/typography.png",
       alt: "Typography scale for HRMS",
       caption: "Heading, body, and label sizes using Poppins.",
@@ -602,15 +577,13 @@ const hrms: CaseStudy = {
     },
     {
       type: "text",
-      content: "Color",
+      content: "<b>Color</b>",
     },
     {
       type: "image",
-      // Replace with actual color palette export from Figma showing all swatches with hex values when ready.
       src: "/case study resources/hrms/colors.png",
       alt: "Color palette for HRMS",
-      caption:
-        "Background, border, and text grays, plus brand, success, and danger colors.",
+      caption: "Background, border, and text grays, plus brand, success, and danger colors.",
     },
     {
       type: "text",
@@ -624,56 +597,73 @@ const hrms: CaseStudy = {
     },
     {
       type: "image",
-      // Replace with actual landing page high-fidelity export from Figma when ready.
       src: "/case study resources/hrms/landing-page.png",
       alt: "HRMS landing page",
-      caption:
-        "Hero section with headline, CTA buttons, and a live employee snapshot.",
+      caption: "Hero section with headline, CTA buttons, and a live employee snapshot.",
     },
     {
       type: "image",
-      // Replace with actual Sign In page high-fidelity export from Figma when ready.
       src: "/case study resources/hrms/signin.png",
       alt: "Sign In page",
       caption: "Centered card with email, password, and sign in with Google.",
     },
     {
       type: "image",
-      // Replace with actual Sign Up page high-fidelity export from Figma when ready.
       src: "/case study resources/hrms/signup.png",
       alt: "Sign Up page",
-      caption:
-        "Same layout as Sign In, with fields for company and account details.",
+      caption: "Same layout as Sign In, with fields for company and account details.",
     },
     {
       type: "image",
-      // Replace with actual 404 page high-fidelity export from Figma when ready.
       src: "/case study resources/hrms/not-found.png",
       alt: "404 page",
       caption: "Simple message with a button back to the dashboard.",
     },
     {
       type: "image",
-      // Replace with actual main dashboard high-fidelity export from Figma when ready.
       src: "/case study resources/hrms/dashboard-demo.png",
       alt: "Main HRMS dashboard",
-      caption:
-        "Employee and recruitment status, revenue, and team attendance at a glance.",
+      caption: "Employee and recruitment status, revenue, and team attendance at a glance.",
     },
     {
       type: "image",
-      // Replace with actual employee list page high-fidelity export from Figma when ready.
       src: "/case study resources/hrms/employees.png",
       alt: "Employee list page",
-      caption:
-        "Dense data table with search, filters, and inline quick actions.",
+      caption: "Dense data table with search, filters, and inline quick actions.",
     },
     {
       type: "image",
-      // Replace with actual payroll page high-fidelity export from Figma when ready.
       src: "/case study resources/hrms/payroll.png",
       alt: "Payroll page",
       caption: "Salary breakdown for each employee, with status and export.",
+    },
+    {
+      type: "image",
+      // Replace src with your actual attendance page export path.
+      src: "/case study resources/hrms/attendance.png",
+      alt: "Attendance page",
+      caption: "Summary cards for total present, late arrivals, and attendance rate, with a check-in and check-out log below.",
+    },
+    {
+      type: "image",
+      // Replace src with your actual recruitment list page export path.
+      src: "/case study resources/hrms/recruitment.png",
+      alt: "Recruitment list page",
+      caption: "All open roles in one table, with applicant counts, team assignments, and pipeline status.",
+    },
+    {
+      type: "image",
+      // Replace src with your actual recruitment pipeline/Kanban export path.
+      src: "/case study resources/hrms/recruitment-pipeline.png",
+      alt: "Recruitment Kanban pipeline",
+      caption: "Candidate pipeline for a single role, with hiring stages as columns and candidates as movable cards.",
+    },
+    {
+      type: "image",
+      // Replace src with your actual tasks page export path.
+      src: "/case study resources/hrms/tasks.png",
+      alt: "Tasks page",
+      caption: "Team tasks with priority badges, progress tracking, and deadlines in one table.",
     },
     {
       type: "heading",
@@ -683,7 +673,7 @@ const hrms: CaseStudy = {
     {
       type: "text",
       content:
-        "I tested with HR colleagues and people who worked in HR departments professionally. This was an intentional choice. Testing a tool like this with general users who have no HR background would not have given me useful feedback because the workflows are specific to that context. I needed people who would immediately recognize whether something matched how the work actually happens or not.\n\nMost feedback was positive, which made the one strong piece of critical feedback stand out more clearly.\n\nFeedback I received\n\nOne tester pointed out that the dashboard showed individual attendance, arrival and departure times, but gave no quick way to see how the whole team was doing. She suggested adding a simple chart that shows overall attendance at a glance, so a manager does not have to read through individual records just to get a general sense of the week.\n\nShe was right. I had shown attendance per employee because that felt like the most useful detail, but I had not thought about what a manager actually needs to check first. The distinction matters.",
+        "I tested with HR colleagues and people who worked in HR departments professionally. This was an intentional choice. Testing a tool like this with general users who have no HR background would not have given me useful feedback because the workflows are specific to that context. I needed people who would immediately recognize whether something matched how the work actually happens or not.\n\nMost feedback was positive, which made the one strong piece of critical feedback stand out more clearly.\n\n<b>Feedback I received</b>\n\nOne tester pointed out that the dashboard showed individual attendance, arrival and departure times, but gave no quick way to see how the whole team was doing. She suggested adding a simple chart that shows overall attendance at a glance, so a manager does not have to read through individual records just to get a general sense of the week.\n\nShe was right. I had shown attendance per employee because that felt like the most useful detail, but I had not thought about what a manager actually needs to check first. The distinction matters.",
     },
     {
       type: "heading",
@@ -692,14 +682,11 @@ const hrms: CaseStudy = {
     },
     {
       type: "before-after",
-      // Replace imageBefore with actual dashboard showing only per-employee attendance, export when ready.
       imageBefore: "/case study resources/hrms/iteration-issue.png",
-      // Replace imageAfter with actual revised dashboard with overall attendance chart added, export when ready.
       imageAfter: "/case study resources/hrms/iteration-solve.png",
       beforeLabel: "Individual attendance only",
       afterLabel: "Added overall attendance chart",
-      caption:
-        "Dashboard iteration. Individual attendance only, then an added overall attendance chart.",
+      caption: "Dashboard iteration. Individual attendance only, then an added overall attendance chart.",
     },
     {
       type: "text",
@@ -715,10 +702,14 @@ const hrms: CaseStudy = {
       type: "reflection",
       items: [
         {
-          title:
-            "I would map each user role separately before designing anything.",
+          title: "I would map each user role separately before designing anything.",
           content:
             "HRMS is used by at least three different types of people: recruitment managers, payroll administrators, and general HR staff. They have different priorities, different daily workflows, and different information needs. I designed mostly for a generalist HR user, which meant the design was a reasonable fit for everyone but probably not a great fit for anyone specifically. I would spend more time upfront mapping each role's workflow before touching any screen.",
+        },
+        {
+          title: "I would get the candidate pipeline into testing much earlier.",
+          content:
+            "The Kanban-style pipeline is one of the more interaction-heavy parts of the system and I only finalized it at the high-fidelity stage. By the time it was ready to test properly, the project was nearly done. If something fundamental was wrong with how candidates move between stages, I would not have had time to address it properly. Next time I would prototype the pipeline concept early and test it before investing in the full visual design.",
         },
         {
           title: "I would test with realistic data volume.",
