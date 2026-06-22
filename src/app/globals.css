@@ -91,6 +91,13 @@ body {
   -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
 }
 
+@media (max-width: 1024px) {
+  #scroll-track,
+  .section-dot {
+    display: none !important;
+  }
+}
+
 #scroll-track::before {
   content: '';
   position: absolute;
@@ -131,6 +138,133 @@ nav {
   padding: 0 2.5rem;
   height: 60px;
   transition: background var(--transition), border-color var(--transition);
+}
+
+/* ─── HAMBURGER BUTTON ─── */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 301;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.nav-hamburger-line {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: currentColor;
+  transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
+  transform-origin: center;
+}
+
+.nav-hamburger.open .nav-hamburger-line:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+
+.nav-hamburger.open .nav-hamburger-line:nth-child(2) {
+  opacity: 0;
+  width: 0;
+}
+
+.nav-hamburger.open .nav-hamburger-line:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* ─── MOBILE NAV OVERLAY ─── */
+.nav-mobile-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.nav-mobile-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.nav-mobile-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-mobile-links a {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.6rem, 7vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nav-mobile-links a:hover,
+.nav-mobile-links a.active-link {
+  color: var(--color-text-muted);
+}
+
+.nav-mobile-footer {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.nav-mobile-footer a {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: color 0.2s ease;
+}
+
+.nav-mobile-footer a:hover {
+  color: var(--color-text);
+}
+
+/* ─── NAVBAR RESPONSIVE ─── */
+@media (max-width: 900px) {
+  nav {
+    padding: 0 1.25rem;
+  }
+
+  .nav-links {
+    display: none !important;
+  }
+
+  .nav-hamburger {
+    display: flex !important;
+  }
+}
+
+@media (max-width: 480px) {
+  nav {
+    padding: 0 1rem;
+  }
 }
 
 nav.at-top .nav-logo,
@@ -435,6 +569,18 @@ nav.at-top .theme-toggle-new .moon-icon {
   margin: 0 auto;
 }
 
+@media (max-width: 768px) {
+  .page-section {
+    padding: 5rem 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-section {
+    padding: 4rem 1rem;
+  }
+}
+
 .section-eyebrow {
   font-size: 0.72rem;
   font-weight: 600;
@@ -468,6 +614,18 @@ nav.at-top .theme-toggle-new .moon-icon {
   padding: 7rem 2.5rem 4rem;
   max-width: 1100px;
   margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .works-header {
+    padding: 5rem 1.25rem 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .works-header {
+    padding: 4rem 1rem 2.5rem;
+  }
 }
 
 .works-scroll-list {
@@ -619,7 +777,7 @@ nav.at-top .theme-toggle-new .moon-icon {
 
 @media (max-width: 768px) {
   .works-scroll-item {
-    height: 75vh;
+    height: 70vh;
     margin-bottom: 10vh;
   }
 
@@ -637,6 +795,32 @@ nav.at-top .theme-toggle-new .moon-icon {
 
   .works-item-title {
     font-size: clamp(1.4rem, 7vw, 2rem);
+  }
+
+  .works-item-desc {
+    font-size: 0.78rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .works-scroll-item {
+    height: 60vh;
+    margin-bottom: 8vh;
+  }
+
+  .works-info {
+    padding: 1rem 1rem;
+    gap: 0.6rem;
+  }
+
+  .works-item-title {
+    font-size: clamp(1.2rem, 8vw, 1.6rem);
+  }
+
+  .works-item-tag {
+    top: 1rem;
+    right: 1rem;
+    font-size: 0.65rem;
   }
 }
 
@@ -669,6 +853,18 @@ nav.at-top .theme-toggle-new .moon-icon {
   padding: 7rem 2.5rem 4rem;
   max-width: 1100px;
   margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .process-header {
+    padding: 5rem 1.25rem 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .process-header {
+    padding: 4rem 1rem 2.5rem;
+  }
 }
 
 .process-sticky-wrap {
@@ -1026,6 +1222,24 @@ nav.at-top .theme-toggle-new .moon-icon {
   }
 }
 
+@media (max-width: 480px) {
+  .contact-grid {
+    gap: 1.5rem;
+  }
+
+  .contact-beams-col {
+    min-height: 220px;
+  }
+
+  .contact-form {
+    padding: 1.2rem 1rem 1rem;
+  }
+
+  .contact-email-row {
+    padding: 0.85rem 1rem;
+  }
+}
+
 /* ─── SKILLS TOSS PHYSICS MIGRATED FROM SKILLS.TSX ─── */
 .skills-physics-container {
   position: relative;
@@ -1102,6 +1316,18 @@ nav.at-top .theme-toggle-new .moon-icon {
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 2.5rem 4rem 2.5rem;
+}
+
+@media (max-width: 768px) {
+  .footer-wrap {
+    padding: 0 1.25rem 3rem 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-wrap {
+    padding: 0 1rem 2.5rem 1rem;
+  }
 }
 
 .footer-divider {
@@ -1492,6 +1718,25 @@ footer p {
   }
 }
 
+@media (max-width: 480px) {
+  .process-card-stack {
+    width: 94vw;
+    min-height: 240px;
+  }
+
+  .pcard-left {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .pcard-right {
+    height: 65px;
+  }
+
+  .pcard-right-label {
+    font-size: 2.5rem;
+  }
+}
+
 /* Sticky back button for case study */
 .sticky-back-btn {
   position: fixed;
@@ -1543,6 +1788,55 @@ footer p {
 
   .sticky-back-btn:hover {
     transform: none;
+  }
+}
+
+/* ─── CASE STUDY PAGE RESPONSIVE ─── */
+/* Hero image height on mobile */
+@media (max-width: 768px) {
+  .cs-hero-image {
+    height: 45vh !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .cs-hero-image {
+    height: 35vh !important;
+  }
+}
+
+/* Case study nav — already hidden at ≤768px */
+
+/* Case study images: ensure they never overflow horizontally */
+.case-study-image-wrapper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.case-study-image-wrapper img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Reduce metadata row padding on small screens */
+@media (max-width: 480px) {
+  .metadata-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+    padding: 0.75rem 0;
+  }
+
+  .metadata-value {
+    text-align: left;
+  }
+}
+
+/* Related grid: single column on tiny screens */
+@media (max-width: 480px) {
+  .related-card {
+    padding: 1.25rem;
   }
 }
 

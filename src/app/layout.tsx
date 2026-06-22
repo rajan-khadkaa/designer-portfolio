@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter, Syne } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider, themeInitScript } from '@/providers/ThemeProvider';
@@ -23,6 +23,12 @@ const syne = Syne({
 export const metadata: Metadata = {
   title: 'Rajan · Portfolio',
   description: 'Building thoughtful interfaces and creative experiences.',
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
 };
 
 export default function RootLayout({

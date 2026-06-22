@@ -597,12 +597,6 @@ const hrms: CaseStudy = {
     },
     {
       type: "image",
-      src: "/case study resources/hrms/landing-page.png",
-      alt: "HRMS landing page",
-      caption: "Hero section with headline, CTA buttons, and a live employee snapshot.",
-    },
-    {
-      type: "image",
       src: "/case study resources/hrms/signin.png",
       alt: "Sign In page",
       caption: "Centered card with email, password, and sign in with Google.",
@@ -613,15 +607,10 @@ const hrms: CaseStudy = {
       alt: "Sign Up page",
       caption: "Same layout as Sign In, with fields for company and account details.",
     },
+
     {
       type: "image",
-      src: "/case study resources/hrms/not-found.png",
-      alt: "404 page",
-      caption: "Simple message with a button back to the dashboard.",
-    },
-    {
-      type: "image",
-      src: "/case study resources/hrms/dashboard-demo.png",
+      src: "/case study resources/hrms/dashboard.png",
       alt: "Main HRMS dashboard",
       caption: "Employee and recruitment status, revenue, and team attendance at a glance.",
     },
@@ -647,14 +636,14 @@ const hrms: CaseStudy = {
     {
       type: "image",
       // Replace src with your actual recruitment list page export path.
-      src: "/case study resources/hrms/recruitment.png",
+      src: "/case study resources/hrms/recruitment-1.png",
       alt: "Recruitment list page",
       caption: "All open roles in one table, with applicant counts, team assignments, and pipeline status.",
     },
     {
       type: "image",
       // Replace src with your actual recruitment pipeline/Kanban export path.
-      src: "/case study resources/hrms/recruitment-pipeline.png",
+      src: "/case study resources/hrms/recruitment-2.png",
       alt: "Recruitment Kanban pipeline",
       caption: "Candidate pipeline for a single role, with hiring stages as columns and candidates as movable cards.",
     },
@@ -664,6 +653,18 @@ const hrms: CaseStudy = {
       src: "/case study resources/hrms/tasks.png",
       alt: "Tasks page",
       caption: "Team tasks with priority badges, progress tracking, and deadlines in one table.",
+    },
+    {
+      type: "image",
+      src: "/case study resources/hrms/landing-page.png",
+      alt: "HRMS landing page",
+      caption: "Landing page with headline, CTA buttons, and additional information.",
+    },
+    {
+      type: "image",
+      src: "/case study resources/hrms/not-found.png",
+      alt: "404 page",
+      caption: "Simple message with a button back to the dashboard.",
     },
     {
       type: "heading",

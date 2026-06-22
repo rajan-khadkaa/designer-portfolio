@@ -223,7 +223,7 @@ export default function CaseStudyClient({ study }: CaseStudyClientProps) {
 
       <main>
         {/* ── Hero image ── */}
-        <div className="w-full h-[60vh] relative overflow-hidden">
+        <div className="w-full cs-hero-image relative overflow-hidden" style={{ height: '60vh' }}>
           <Image
             src={study.heroImage}
             alt={`${study.title} hero`}
@@ -235,7 +235,7 @@ export default function CaseStudyClient({ study }: CaseStudyClientProps) {
         </div>
 
         {/* ── Content wrapper ── */}
-        <div className="max-w-[780px] mx-auto py-8 px-6 md:px-24">
+        <div className="max-w-[780px] mx-auto py-8 px-4 sm:px-6 md:px-10 lg:px-16">
           {/* Sticky Back button */}
           <Link
             href="/#works"

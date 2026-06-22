@@ -16,8 +16,24 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [show3d, setShow3d] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('');
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const isHomePage = pathname === '/';
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileOpen]);
 
   // IntersectionObserver for tracking active home page sections
   useEffect(() => {
@@ -122,13 +138,11 @@ export default function Navbar() {
   const handleToggle3D = () => {
     const nextVal = !show3d;
     setShow3d(nextVal);
-    // Dispatch custom event that HeroCanvas will listen to
     window.dispatchEvent(
       new CustomEvent('toggle-3d-model', { detail: { visible: nextVal } })
     );
   };
 
-  // Listen to external toggle events to keep state synced (e.g. if Hero Canvas changes it)
   useEffect(() => {
     const handleExternalToggle = (e: Event) => {
       const customEvent = e as CustomEvent;
@@ -143,6 +157,7 @@ export default function Navbar() {
   }, []);
 
   const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    setMobileOpen(false);
     if (isHomePage) {
       e.preventDefault();
       const targetId = href.substring(1);
@@ -167,65 +182,127 @@ export default function Navbar() {
   const isAtTop = !scrolled;
   const isLightTheme = theme === 'light';
 
-  // Only apply the "at-top" hero-overlay style on the homepage hero.
-  // On all other routes (blog, about, work, etc.) the navbar always uses
-  // the standard theme-aware text colours so links remain legible.
   const atTopClass = isAtTop && isLightTheme && isHomePage ? 'at-top' : '';
   const scrolledClass = scrolled ? 'scrolled' : '';
-  // Non-hero pages always show a solid navbar so text is legible
   const notHeroClass = !isHomePage ? 'not-hero' : '';
+
+  // Hamburger colour: white on hero at-top, otherwise theme text colour
+  const hamburgerColor =
+    isAtTop && isLightTheme && isHomePage ? 'rgba(255,255,255,0.9)' : 'var(--color-text)';
+
   return (
-    <nav className={`${scrolledClass} ${atTopClass} ${notHeroClass}`} id="navbar">
-      <Link href="/" className="nav-logo" aria-label="Rajan Portfolio Home">
-        <svg
-          width="28"
-          height="24"
-          viewBox="0 0 1110 947"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="block h-[1.35rem] w-auto"
-        >
-          <path d="M243.5 115H636.5L394 946.5H0L243.5 115Z" fill="currentColor"/>
-          <path d="M1109.5 0H716.5L623.5 316H732.5L679.5 498H570.5L546.5 579L629 832H867L1109.5 0Z" fill="currentColor"/>
-        </svg>
-      </Link>
-      <ul className="nav-links">
-        {NAV_LINKS.map((link) => {
-          const isAnchor = link.href.startsWith('#');
-          if (isAnchor) {
-            const finalHref = isHomePage ? link.href : `/${link.href}`;
-            const isActive = isHomePage && activeSection === link.href.substring(1);
-            return (
-              <li key={link.href}>
-                <a
-                  href={finalHref}
-                  onClick={(e) => handleAnchorClick(e, link.href)}
-                  className={isActive ? 'active-link' : ''}
-                >
-                  {link.label}
-                </a>
-              </li>
-            );
-          } else {
-            return (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className={pathname === link.href ? 'active-link' : ''}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            );
-          }
-        })}
-      </ul>
-      <div className="nav-right">
-        <ThemeToggle />
-        {/* <button id="toggle-model-btn" onClick={handleToggle3D}>
-          {show3d ? 'Hide 3D' : 'Show 3D'}
-        </button> */}
+    <>
+      <nav className={`${scrolledClass} ${atTopClass} ${notHeroClass}`} id="navbar">
+        <Link href="/" className="nav-logo" aria-label="Rajan Portfolio Home">
+          <svg
+            width="28"
+            height="24"
+            viewBox="0 0 1110 947"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="block h-[1.35rem] w-auto"
+          >
+            <path d="M243.5 115H636.5L394 946.5H0L243.5 115Z" fill="currentColor"/>
+            <path d="M1109.5 0H716.5L623.5 316H732.5L679.5 498H570.5L546.5 579L629 832H867L1109.5 0Z" fill="currentColor"/>
+          </svg>
+        </Link>
+
+        {/* Desktop nav links */}
+        <ul className="nav-links">
+          {NAV_LINKS.map((link) => {
+            const isAnchor = link.href.startsWith('#');
+            if (isAnchor) {
+              const finalHref = isHomePage ? link.href : `/${link.href}`;
+              const isActive = isHomePage && activeSection === link.href.substring(1);
+              return (
+                <li key={link.href}>
+                  <a
+                    href={finalHref}
+                    onClick={(e) => handleAnchorClick(e, link.href)}
+                    className={isActive ? 'active-link' : ''}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              );
+            } else {
+              return (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className={pathname === link.href ? 'active-link' : ''}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              );
+            }
+          })}
+        </ul>
+
+        <div className="nav-right">
+          <ThemeToggle />
+
+          {/* Hamburger button — visible only on mobile via CSS */}
+          <button
+            className={`nav-hamburger${mobileOpen ? ' open' : ''}`}
+            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileOpen}
+            onClick={() => setMobileOpen((prev) => !prev)}
+            style={{ color: hamburgerColor }}
+          >
+            <span className="nav-hamburger-line" />
+            <span className="nav-hamburger-line" />
+            <span className="nav-hamburger-line" />
+          </button>
+        </div>
+      </nav>
+
+      {/* ── Mobile full-screen overlay ── */}
+      <div className={`nav-mobile-overlay${mobileOpen ? ' open' : ''}`} aria-hidden={!mobileOpen}>
+        <ul className="nav-mobile-links">
+          {NAV_LINKS.map((link) => {
+            const isAnchor = link.href.startsWith('#');
+            if (isAnchor) {
+              const finalHref = isHomePage ? link.href : `/${link.href}`;
+              const isActive = isHomePage && activeSection === link.href.substring(1);
+              return (
+                <li key={link.href}>
+                  <a
+                    href={finalHref}
+                    onClick={(e) => handleAnchorClick(e, link.href)}
+                    className={isActive ? 'active-link' : ''}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              );
+            } else {
+              return (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    onClick={() => setMobileOpen(false)}
+                    className={pathname === link.href ? 'active-link' : ''}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              );
+            }
+          })}
+        </ul>
+
+        {/* Social links at the bottom of overlay */}
+        <div className="nav-mobile-footer">
+          <a href="https://www.linkedin.com/in/rajan-khadka-106868268/" target="_blank" rel="noopener noreferrer">
+            LinkedIn
+          </a>
+          <a href="https://github.com/rajan-khadkaa" target="_blank" rel="noopener noreferrer">
+            GitHub
+          </a>
+        </div>
       </div>
-    </nav>
+    </>
   );
 }
