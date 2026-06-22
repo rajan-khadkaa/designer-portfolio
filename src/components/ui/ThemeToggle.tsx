@@ -30,6 +30,8 @@ export default function ThemeToggle() {
         <mask id="theme-toggle-mask">
           <rect x="0" y="0" width="100%" height="100%" fill="white" />
           <motion.circle
+            cx={isDark ? 18 : 30}
+            cy={isDark ? 6 : 0}
             animate={{
               cx: isDark ? 18 : 30,
               cy: isDark ? 6 : 0,
@@ -42,6 +44,7 @@ export default function ThemeToggle() {
         <motion.circle
           cx="12"
           cy="12"
+          r={isDark ? 9 : 5}
           animate={{ r: isDark ? 9 : 5 }}
           transition={{ type: 'spring', stiffness: 200, damping: 15 }}
           fill="currentColor"

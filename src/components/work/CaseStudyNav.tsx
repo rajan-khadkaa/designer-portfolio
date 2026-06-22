@@ -92,6 +92,7 @@ export default function CaseStudyNav({ items }: CaseStudyNavProps) {
         {isOpen && (
           <div
             className="cs-nav-popup"
+            data-lenis-prevent
             style={{
               position: 'absolute',
               right: '28px',
