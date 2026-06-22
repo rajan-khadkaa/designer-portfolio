@@ -248,21 +248,48 @@ nav.not-hero .nav-logo:hover {
 }
 
 .theme-toggle-new {
-  width: 36px;
-  height: 36px;
+  width: 66px;
+  height: 34px;
+  padding: 4px;
   border: 1px solid var(--color-border);
   background: var(--color-bg-3);
   color: var(--color-text);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  position: relative;
   transition: background var(--transition), border-color 0.3s ease, color 0.3s ease;
-  border-radius: 50% !important;
+  border-radius: 9999px !important;
 }
 
 .theme-toggle-new:hover {
   background: var(--color-bg-2);
+}
+
+.theme-toggle-handle {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px !important;
+  background: var(--color-bg);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: background var(--transition);
+}
+
+nav.at-top .theme-toggle-handle {
+  background: #ffffff !important;
+}
+
+/* Light mode at-top state overrides */
+nav.at-top .theme-toggle-new .sun-icon {
+  color: #111114 !important;
+}
+
+nav.at-top .theme-toggle-new .moon-icon {
+  color: rgba(255, 255, 255, 0.55) !important;
 }
 
 #toggle-model-btn {
