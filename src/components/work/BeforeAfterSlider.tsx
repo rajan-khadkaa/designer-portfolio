@@ -76,21 +76,12 @@ export default function BeforeAfterSlider({
   }, [updatePosition]);
 
   return (
-    <figure style={{ margin: 0 }}>
+    <figure className="m-0">
       <div
         ref={containerRef}
         onMouseDown={onMouseDown}
         onTouchStart={onTouchStart}
-        style={{
-          position: 'relative',
-          width: '100%',
-          aspectRatio: '16/9',
-          overflow: 'hidden',
-          cursor: 'ew-resize',
-          userSelect: 'none',
-          border: '1px solid var(--color-border)',
-          background: 'var(--color-bg-2)',
-        }}
+        className="relative w-full aspect-video overflow-hidden cursor-ew-resize select-none border border-[var(--color-border)] bg-[var(--color-bg-2)]"
         aria-label="Before and after comparison slider"
       >
         {/* AFTER image — full width behind */}
@@ -98,78 +89,42 @@ export default function BeforeAfterSlider({
           src={imageAfter}
           alt={afterLabel}
           draggable={false}
-          style={{
-            position: 'absolute',
-            inset: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            display: 'block',
-            pointerEvents: 'none',
-          }}
+          className="absolute inset-0 w-full h-full object-cover block pointer-events-none"
         />
 
         {/* BEFORE image — clipped to left of divider */}
         <div
+          className="absolute inset-0 overflow-hidden"
           style={{
-            position: 'absolute',
-            inset: 0,
             width: `${position}%`,
-            overflow: 'hidden',
           }}
         >
           <img
             src={imageBefore}
             alt={beforeLabel}
             draggable={false}
+            className="absolute top-0 left-0 h-full object-cover block pointer-events-none"
             style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
               width: containerRef.current
                 ? `${containerRef.current.offsetWidth}px`
                 : '100%',
-              height: '100%',
-              objectFit: 'cover',
-              display: 'block',
-              pointerEvents: 'none',
             }}
           />
         </div>
 
         {/* Divider line */}
         <div
+          className="absolute top-0 bottom-0 -translate-x-1/2 w-[2px] bg-white/90 z-10 pointer-events-none"
           style={{
-            position: 'absolute',
-            top: 0,
-            bottom: 0,
             left: `${position}%`,
-            transform: 'translateX(-50%)',
-            width: '2px',
-            background: 'rgba(255,255,255,0.9)',
-            zIndex: 10,
-            pointerEvents: 'none',
           }}
         />
 
         {/* Drag handle — circular exception per design system note */}
         <div
+          className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white border-2 border-black/12 z-11 flex items-center justify-center pointer-events-none shadow-[0_2px_12px_rgba(0,0,0,0.18)]"
           style={{
-            position: 'absolute',
-            top: '50%',
             left: `${position}%`,
-            transform: 'translate(-50%, -50%)',
-            width: '40px',
-            height: '40px',
-            borderRadius: '50%',
-            background: '#ffffff',
-            border: '2px solid rgba(0,0,0,0.12)',
-            zIndex: 11,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            pointerEvents: 'none',
-            boxShadow: '0 2px 12px rgba(0,0,0,0.18)',
           }}
         >
           <svg
@@ -196,21 +151,9 @@ export default function BeforeAfterSlider({
 
         {/* Before label */}
         <span
+          className="absolute top-3 left-3 z-9 px-2 py-1 bg-black/55 text-white text-[0.7rem] font-semibold tracking-wider uppercase pointer-events-none transition-opacity duration-150"
           style={{
-            position: 'absolute',
-            top: '0.75rem',
-            left: '0.75rem',
-            zIndex: 9,
-            padding: '0.2rem 0.6rem',
-            background: 'rgba(0,0,0,0.55)',
-            color: '#ffffff',
-            fontSize: '0.7rem',
-            fontWeight: 600,
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-            pointerEvents: 'none',
             opacity: position > 10 ? 1 : 0,
-            transition: 'opacity 0.15s ease',
           }}
         >
           {beforeLabel}
@@ -218,21 +161,9 @@ export default function BeforeAfterSlider({
 
         {/* After label */}
         <span
+          className="absolute top-3 right-3 z-9 px-2 py-1 bg-black/55 text-white text-[0.7rem] font-semibold tracking-wider uppercase pointer-events-none transition-opacity duration-150"
           style={{
-            position: 'absolute',
-            top: '0.75rem',
-            right: '0.75rem',
-            zIndex: 9,
-            padding: '0.2rem 0.6rem',
-            background: 'rgba(0,0,0,0.55)',
-            color: '#ffffff',
-            fontSize: '0.7rem',
-            fontWeight: 600,
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-            pointerEvents: 'none',
             opacity: position < 90 ? 1 : 0,
-            transition: 'opacity 0.15s ease',
           }}
         >
           {afterLabel}
@@ -240,16 +171,7 @@ export default function BeforeAfterSlider({
       </div>
 
       {caption && (
-        <figcaption
-          style={{
-            marginTop: '0.6rem',
-            fontSize: '0.78rem',
-            color: 'var(--color-text-muted)',
-            fontStyle: 'italic',
-            lineHeight: 1.55,
-            textAlign: 'center',
-          }}
-        >
+        <figcaption className="mt-2.5 text-[0.78rem] text-[var(--color-text-muted)] italic leading-relaxed text-center">
           {caption}
         </figcaption>
       )}

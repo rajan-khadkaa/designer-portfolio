@@ -27,7 +27,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="hero" ref={heroRef} style={{ padding: 0, maxWidth: '100%' }}>
+    <section id="hero" ref={heroRef} className="p-0 max-w-full">
       <video
         id="sky-video"
         autoPlay

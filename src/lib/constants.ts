@@ -15,33 +15,6 @@ export const SOCIAL_LINKS: SocialLink[] = [
   { name: 'WhatsApp', url: 'https://wa.me/+9779814364007?text=Hello%20Rajan,%20Let%27s%20work%20together.' }
 ];
 
-export const PROJECTS: Project[] = [
-  {
-    num: '01',
-    title: 'Brand Identity',
-    description: 'Full visual identity system for a Series A payments company — logo, type, motion, and design system.',
-    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1400',
-    tag: 'Branding',
-    slug: 'brand-identity',
-  },
-  {
-    num: '02',
-    title: 'Analytics Dashboard',
-    description: 'End-to-end product design and React build for a real-time data visualisation platform.',
-    image: 'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?q=80&w=1400',
-    tag: 'Product',
-    slug: 'analytics-dashboard',
-  },
-  {
-    num: '03',
-    title: '3D Web Experience',
-    description: 'Award-shortlisted WebGL experience built with Three.js and custom GLSL shaders.',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1400',
-    tag: 'Creative Dev',
-    slug: '3d-web-experience',
-  },
-];
-
 // Only show these two case studies in the Works section
 export const WORKS = [
   {

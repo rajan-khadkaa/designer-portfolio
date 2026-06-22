@@ -26,13 +26,8 @@ export default function ThemeToggle() {
 
       {/* Moon Icon (Left) */}
       <span
-        className="moon-icon z-10 flex items-center justify-center transition-opacity duration-300"
+        className="moon-icon z-10 flex items-center justify-center transition-opacity duration-300 absolute left-1 top-1 w-6 h-6"
         style={{
-          position: 'absolute',
-          left: '4px',
-          top: '4px',
-          width: '24px',
-          height: '24px',
           opacity: isDark ? 1 : 0.55,
         }}
       >
@@ -53,13 +48,8 @@ export default function ThemeToggle() {
 
       {/* Sun Icon (Right) */}
       <span
-        className="sun-icon z-10 flex items-center justify-center transition-opacity duration-300"
+        className="sun-icon z-10 flex items-center justify-center transition-opacity duration-300 absolute right-1 top-1 w-6 h-6"
         style={{
-          position: 'absolute',
-          right: '4px',
-          top: '4px',
-          width: '24px',
-          height: '24px',
           opacity: !isDark ? 1 : 0.55,
         }}
       >

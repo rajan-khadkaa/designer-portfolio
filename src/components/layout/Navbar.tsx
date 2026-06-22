@@ -174,7 +174,6 @@ export default function Navbar() {
   const scrolledClass = scrolled ? 'scrolled' : '';
   // Non-hero pages always show a solid navbar so text is legible
   const notHeroClass = !isHomePage ? 'not-hero' : '';
-
   return (
     <nav className={`${scrolledClass} ${atTopClass} ${notHeroClass}`} id="navbar">
       <Link href="/" className="nav-logo" aria-label="Rajan Portfolio Home">
@@ -184,7 +183,7 @@ export default function Navbar() {
           viewBox="0 0 1110 947"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          style={{ display: 'block', height: '1.35rem', width: 'auto' }}
+          className="block h-[1.35rem] w-auto"
         >
           <path d="M243.5 115H636.5L394 946.5H0L243.5 115Z" fill="currentColor"/>
           <path d="M1109.5 0H716.5L623.5 316H732.5L679.5 498H570.5L546.5 579L629 832H867L1109.5 0Z" fill="currentColor"/>

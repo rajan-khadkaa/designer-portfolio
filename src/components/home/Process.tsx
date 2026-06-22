@@ -214,7 +214,7 @@ export default function Process() {
               id={`pcard-${index + 1}`}
             >
               <div className="pcard-left">
-                <span className="pcard-icon" style={{ display: 'inline-flex', height: '24px' }}>
+                <span className="pcard-icon inline-flex h-6">
                   {getStepIcon(index)}
                 </span>
                 <h3>{step.title}</h3>

@@ -198,62 +198,18 @@ export default function Skills() {
         <div
           ref={containerRef}
           className="skills-physics-container"
-          style={{
-            position: 'relative',
-            width: '100%',
-            height: '320px',
-            background: 'var(--color-bg-2)',
-            border: '1px solid var(--color-border)',
-            overflow: 'hidden',
-            marginTop: '2.5rem',
-            cursor: 'grab',
-          }}
         >
           {/* Shuffle button — top-left */}
           <button
             onMouseDown={(e) => e.stopPropagation()}
             onClick={(e) => { e.stopPropagation(); handleShuffle(); }}
-            style={{
-              position: 'absolute',
-              top: '12px',
-              left: '14px',
-              zIndex: 20,
-              padding: '4px 12px',
-              fontSize: '0.65rem',
-              fontWeight: 700,
-              letterSpacing: '0.07em',
-              textTransform: 'uppercase',
-              color: 'var(--color-text-muted)',
-              background: 'var(--color-bg-3)',
-              border: '1px solid var(--color-border)',
-              borderRadius: '100px',
-              cursor: 'pointer',
-              pointerEvents: 'all',
-              userSelect: 'none',
-              transition: 'color 0.15s, background 0.15s',
-            }}
             className="skills-shuffle-btn"
           >
             ↺ Shuffle
           </button>
 
           {/* Drag tip — top-right, not selectable */}
-          <div
-            style={{
-              position: 'absolute',
-              top: '14px',
-              right: '18px',
-              fontSize: '0.65rem',
-              color: 'var(--color-text-muted)',
-              opacity: 0.5,
-              pointerEvents: 'none',
-              fontWeight: 700,
-              letterSpacing: '0.07em',
-              textTransform: 'uppercase',
-              userSelect: 'none',
-              cursor: 'default',
-            }}
-          >
+          <div className="skills-drag-tip">
             Drag to toss
           </div>
 
@@ -261,32 +217,10 @@ export default function Skills() {
             <div
               key={skill}
               className="skill-physics-tag"
-              style={{
-                position: 'absolute',
-                padding: '0.5rem 1.1rem',
-                background: 'var(--color-tag-bg)',
-                color: 'var(--color-tag-text)',
-                border: '1px solid var(--color-border)',
-                borderRadius: '100px',
-                fontSize: '0.83rem',
-                fontWeight: 600,
-                cursor: 'grab',
-                userSelect: 'none',
-                whiteSpace: 'nowrap',
-                willChange: 'transform',
-                opacity: 0,
-              }}
             >
               {skill}
             </div>
           ))}
-
-          <style>{`
-            .skills-shuffle-btn:hover {
-              color: var(--color-text) !important;
-              background: var(--color-bg-3) !important;
-            }
-          `}</style>
         </div>
       )}
     </div>

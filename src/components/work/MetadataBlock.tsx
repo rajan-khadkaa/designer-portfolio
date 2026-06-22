@@ -20,7 +20,7 @@ export default function MetadataBlock({
   ];
 
   return (
-    <div style={{ marginTop: '2.5rem', marginBottom: '2.5rem' }}>
+    <div className="my-10">
       <div className="metadata-vertical-stack">
         {items.map((item) => (
           <div key={item.label} className="metadata-row">
@@ -31,45 +31,9 @@ export default function MetadataBlock({
       </div>
 
       {/* Read time line */}
-      <p
-        style={{
-          marginTop: '1.25rem',
-          fontSize: '0.78rem',
-          color: 'var(--color-text-muted)',
-          letterSpacing: '0.02em',
-        }}
-      >
+      <p className="mt-5 text-[0.78rem] text-[var(--color-text-muted)] tracking-wide">
         {readTime} · {readType}
       </p>
-
-      <style>{`
-        .metadata-vertical-stack {
-          display: flex;
-          flex-direction: column;
-          width: 100%;
-        }
-        .metadata-row {
-          display: flex;
-          justify-content: space-between;
-          align-items: baseline;
-          padding: 0.95rem 0;
-          border-bottom: 1.5px dotted var(--color-border);
-          transition: border-color var(--transition);
-        }
-        .metadata-label {
-          font-size: 0.72rem;
-          font-weight: 700;
-          letter-spacing: 0.15em;
-          text-transform: uppercase;
-          color: var(--color-text-muted);
-        }
-        .metadata-value {
-          font-size: 0.92rem;
-          font-weight: 500;
-          color: var(--color-text);
-          text-align: right;
-        }
-      `}</style>
     </div>
   );
 }

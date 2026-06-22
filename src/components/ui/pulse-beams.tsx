@@ -58,7 +58,7 @@ export const PulseBeams = ({
   beams,
   width = 858,
   height = 434,
-  baseColor = 'var(--color-border)',
+  baseColor = 'var(--color-bg-3)',
   accentColor = 'var(--color-text-muted)',
   gradientColors,
 }: PulseBeamsProps) => {

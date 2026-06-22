@@ -28,17 +28,7 @@ function RenderHeading({ section }: { section: SectionHeading }) {
     <ScrollReveal>
       <h2
         id={section.id}
-        style={{
-          fontFamily: 'var(--font-display)',
-          fontWeight: 800,
-          fontSize: 'clamp(1.25rem, 2.8vw, 1.75rem)',
-          letterSpacing: '-0.02em',
-          color: 'var(--color-text)',
-          marginTop: '3.5rem',
-          marginBottom: '1.25rem',
-          lineHeight: 1.15,
-          scrollMarginTop: '80px',
-        }}
+        className="font-display font-extrabold text-[clamp(1.25rem,2.8vw,1.75rem)] tracking-tight text-[var(--color-text)] mt-14 mb-5 leading-[1.15] scroll-mt-20"
       >
         {section.text}
       </h2>
@@ -50,17 +40,11 @@ function RenderText({ section }: { section: SectionText }) {
   const paragraphs = section.content.split('\n\n').filter(Boolean);
   return (
     <ScrollReveal>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <div className="flex flex-col gap-4">
         {paragraphs.map((para, i) => (
           <div
             key={i}
-            className="case-study-html-content"
-            style={{
-              color: 'var(--color-text-muted)',
-              lineHeight: 1.8,
-              fontSize: '0.97rem',
-              margin: 0,
-            }}
+            className="case-study-html-content text-[var(--color-text-muted)] leading-[1.8] text-[0.97rem] m-0"
             dangerouslySetInnerHTML={{ __html: para }}
           />
         ))}
@@ -72,27 +56,9 @@ function RenderText({ section }: { section: SectionText }) {
 function RenderImage({ section }: { section: SectionImage }) {
   if (!section.src) {
     return (
-      <figure style={{ margin: '0.5rem 0' }}>
-        <div
-          style={{
-            width: '100%',
-            aspectRatio: '16/9',
-            background: 'var(--color-bg-3)',
-            border: '1px dashed var(--color-border)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <span
-            style={{
-              fontStyle: 'italic',
-              color: 'var(--color-text-muted)',
-              fontSize: '0.85rem',
-              textAlign: 'center',
-              padding: '1rem',
-            }}
-          >
+      <figure className="my-2">
+        <div className="w-full aspect-video bg-[var(--color-bg-3)] border border-dashed border-[var(--color-border)] flex items-center justify-center">
+          <span className="italic text-[var(--color-text-muted)] text-[0.85rem] text-center p-4">
             {section.caption}
           </span>
         </div>
@@ -101,31 +67,16 @@ function RenderImage({ section }: { section: SectionImage }) {
   }
 
   return (
-    <figure style={{ margin: '0.5rem 0' }}>
-      <div
-        style={{
-          width: '100%',
-          border: '1px solid var(--color-border)',
-          background: 'var(--color-bg-2)',
-        }}
-      >
+    <figure className="my-2">
+      <div className="w-full border border-[var(--color-border)] bg-[var(--color-bg-2)]">
         <img
           src={section.src}
           alt={section.alt}
-          style={{ width: '100%', height: 'auto', display: 'block' }}
+          className="w-full h-auto block"
         />
       </div>
       {section.caption && (
-        <figcaption
-          style={{
-            marginTop: '0.6rem',
-            fontSize: '0.78rem',
-            color: 'var(--color-text-muted)',
-            fontStyle: 'italic',
-            lineHeight: 1.55,
-            textAlign: 'center',
-          }}
-        >
+        <figcaption className="mt-2.5 text-[0.78rem] text-[var(--color-text-muted)] italic leading-relaxed text-center">
           {section.caption}
         </figcaption>
       )}
@@ -136,23 +87,11 @@ function RenderImage({ section }: { section: SectionImage }) {
 function RenderList({ section }: { section: SectionList }) {
   const Tag = section.listType === 'ordered' ? 'ol' : 'ul';
   return (
-    <Tag
-      style={{
-        paddingLeft: '1.5rem',
-        margin: 0,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '0.6rem',
-      }}
-    >
+    <Tag className="pl-6 m-0 flex flex-col gap-2.5">
       {section.items.map((item, i) => (
         <li
           key={i}
-          style={{
-            color: 'var(--color-text-muted)',
-            lineHeight: 1.75,
-            fontSize: '0.97rem',
-          }}
+          className="text-[var(--color-text-muted)] leading-[1.75] text-[0.97rem]"
           dangerouslySetInnerHTML={{ __html: item }}
         />
       ))}
@@ -162,82 +101,33 @@ function RenderList({ section }: { section: SectionList }) {
 
 function RenderBeforeAfter({ section }: { section: SectionBeforeAfter }) {
   return (
-    <figure style={{ margin: '0.5rem 0', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+    <figure className="my-2 flex flex-col gap-4">
       {/* Before/Old Mockup */}
-      <div
-        style={{
-          position: 'relative',
-          width: '100%',
-          border: '1px solid var(--color-border)',
-          background: 'var(--color-bg-2)',
-        }}
-      >
+      <div className="relative w-full border border-[var(--color-border)] bg-[var(--color-bg-2)]">
         <img
           src={section.imageBefore}
           alt={section.beforeLabel}
-          style={{ width: '100%', height: 'auto', display: 'block' }}
+          className="w-full h-auto block"
         />
-        <span
-          style={{
-            position: 'absolute',
-            top: '0.75rem',
-            left: '0.75rem',
-            padding: '0.25rem 0.75rem',
-            background: 'rgba(0, 0, 0, 0.7)',
-            color: '#ffffff',
-            fontSize: '0.7rem',
-            fontWeight: 700,
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-          }}
-        >
+        <span className="absolute top-3 left-3 px-3 py-1 bg-black/70 text-white text-[0.7rem] font-bold tracking-wider uppercase">
           {section.beforeLabel}
         </span>
       </div>
 
       {/* After/Iterated New Mockup */}
-      <div
-        style={{
-          position: 'relative',
-          width: '100%',
-          border: '1px solid var(--color-border)',
-          background: 'var(--color-bg-2)',
-        }}
-      >
+      <div className="relative w-full border border-[var(--color-border)] bg-[var(--color-bg-2)]">
         <img
           src={section.imageAfter}
           alt={section.afterLabel}
-          style={{ width: '100%', height: 'auto', display: 'block' }}
+          className="w-full h-auto block"
         />
-        <span
-          style={{
-            position: 'absolute',
-            top: '0.75rem',
-            left: '0.75rem',
-            padding: '0.25rem 0.75rem',
-            background: 'rgba(0, 0, 0, 0.7)',
-            color: '#ffffff',
-            fontSize: '0.7rem',
-            fontWeight: 700,
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-          }}
-        >
+        <span className="absolute top-3 left-3 px-3 py-1 bg-black/70 text-white text-[0.7rem] font-bold tracking-wider uppercase">
           {section.afterLabel}
         </span>
       </div>
 
       {section.caption && (
-        <figcaption
-          style={{
-            marginTop: '0.2rem',
-            fontSize: '0.78rem',
-            color: 'var(--color-text-muted)',
-            fontStyle: 'italic',
-            lineHeight: 1.55,
-            textAlign: 'center',
-          }}
-        >
+        <figcaption className="mt-1 text-[0.78rem] text-[var(--color-text-muted)] italic leading-relaxed text-center">
           {section.caption}
         </figcaption>
       )}
@@ -247,36 +137,12 @@ function RenderBeforeAfter({ section }: { section: SectionBeforeAfter }) {
 
 function RenderPrinciple({ section }: { section: SectionPrinciple }) {
   return (
-    <div
-      style={{
-        padding: '1.25rem 1.5rem',
-        background: 'var(--color-bg-2)',
-        border: '1px solid var(--color-border)',
-        borderLeft: '3px solid var(--color-text)',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '0.4rem',
-      }}
-    >
-      <span
-        style={{
-          fontSize: '0.78rem',
-          fontWeight: 700,
-          letterSpacing: '0.06em',
-          color: 'var(--color-text)',
-          textTransform: 'uppercase',
-        }}
-      >
+    <div className="py-5 px-6 bg-[var(--color-bg-2)] border border-[var(--color-border)] border-l-3 border-l-[var(--color-text)] flex flex-col gap-1.5">
+      <span className="text-[0.78rem] font-bold tracking-wider text-[var(--color-text)] uppercase">
         {section.label}
       </span>
       <div
-        className="case-study-html-content"
-        style={{
-          color: 'var(--color-text-muted)',
-          lineHeight: 1.75,
-          fontSize: '0.9rem',
-          margin: 0,
-        }}
+        className="case-study-html-content text-[var(--color-text-muted)] leading-[1.75] text-[0.9rem] m-0"
         dangerouslySetInnerHTML={{ __html: section.content }}
       />
     </div>
@@ -285,65 +151,22 @@ function RenderPrinciple({ section }: { section: SectionPrinciple }) {
 
 function RenderReflection({ section }: { section: SectionReflection }) {
   return (
-    <div
-      style={{
-        borderLeft: '2px solid var(--color-border)',
-        paddingLeft: '1.5rem',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '1.75rem',
-        marginTop: '0.5rem',
-      }}
-    >
-      <p
-        style={{
-          fontSize: '0.65rem',
-          fontWeight: 700,
-          letterSpacing: '0.2em',
-          textTransform: 'uppercase',
-          color: 'var(--color-text-muted)',
-          margin: 0,
-        }}
-      >
+    <div className="border-l-2 border-[var(--color-border)] pl-6 flex flex-col gap-7 mt-2">
+      <p className="text-[0.65rem] font-bold tracking-[0.2em] uppercase text-[var(--color-text-muted)] m-0">
         Reflection
       </p>
 
       {section.items.map((item, i) => (
-        <div key={i} style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
-          <span
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontWeight: 800,
-              fontSize: '1.1rem',
-              color: 'var(--color-text-muted)',
-              opacity: 0.4,
-              flexShrink: 0,
-              lineHeight: 1.3,
-              minWidth: '1.5rem',
-            }}
-          >
+        <div key={i} className="flex gap-4 items-start">
+          <span className="font-display font-extrabold text-[1.1rem] text-[var(--color-text-muted)] opacity-40 shrink-0 leading-[1.3] min-w-[1.5rem]">
             {String(i + 1).padStart(2, '0')}
           </span>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-            <p
-              style={{
-                fontWeight: 600,
-                fontSize: '0.92rem',
-                color: 'var(--color-text)',
-                margin: 0,
-                lineHeight: 1.4,
-              }}
-            >
+          <div className="flex flex-col gap-1.5">
+            <p className="font-semibold text-[0.92rem] text-[var(--color-text)] m-0 leading-[1.4]">
               {item.title}
             </p>
             <div
-              className="case-study-html-content"
-              style={{
-                color: 'var(--color-text-muted)',
-                lineHeight: 1.75,
-                fontSize: '0.9rem',
-                margin: 0,
-              }}
+              className="case-study-html-content text-[var(--color-text-muted)] leading-[1.75] text-[0.9rem] m-0"
               dangerouslySetInnerHTML={{ __html: item.content }}
             />
           </div>
@@ -400,38 +223,19 @@ export default function CaseStudyClient({ study }: CaseStudyClientProps) {
 
       <main>
         {/* ── Hero image ── */}
-        <div
-          style={{
-            width: '100%',
-            height: '60vh',
-            position: 'relative',
-            overflow: 'hidden',
-          }}
-        >
+        <div className="w-full h-[60vh] relative overflow-hidden">
           <Image
             src={study.heroImage}
             alt={`${study.title} hero`}
             fill
             priority
-            style={{ objectFit: 'cover' }}
+            className="object-cover"
           />
-          <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              background: 'linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,0.55) 100%)',
-            }}
-          />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/55" />
         </div>
 
         {/* ── Content wrapper ── */}
-        <div
-          style={{
-            maxWidth: '780px',
-            margin: '0 auto',
-            padding: '2rem 6rem',
-          }}
-        >
+        <div className="max-w-[780px] mx-auto py-8 px-6 md:px-24">
           {/* Sticky Back button */}
           <Link
             href="/#works"
@@ -456,29 +260,10 @@ export default function CaseStudyClient({ study }: CaseStudyClientProps) {
 
           {/* Eyebrow + Title */}
           <ScrollReveal>
-            <p
-              style={{
-                fontSize: '0.72rem',
-                fontWeight: 600,
-                letterSpacing: '0.2em',
-                textTransform: 'uppercase',
-                color: 'var(--color-text-muted)',
-                marginBottom: '0.6rem',
-              }}
-            >
+            <p className="text-[0.72rem] font-semibold tracking-[0.2em] uppercase text-[var(--color-text-muted)] mb-2.5">
               Case Study · {study.tag}
             </p>
-            <h1
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontWeight: 800,
-                fontSize: 'clamp(2rem, 5vw, 3.2rem)',
-                letterSpacing: '-0.03em',
-                lineHeight: 1.05,
-                color: 'var(--color-text)',
-                marginBottom: '2rem',
-              }}
-            >
+            <h1 className="font-display font-extrabold text-[clamp(2rem,5vw,3.2rem)] tracking-tight leading-[1.05] text-[var(--color-text)] mb-8">
               {study.title}
             </h1>
           </ScrollReveal>
@@ -491,21 +276,10 @@ export default function CaseStudyClient({ study }: CaseStudyClientProps) {
           />
 
           {/* Full / Summary toggle */}
-          <div style={{ marginTop: '1.5rem', marginBottom: '2rem' }}>
+          <div className="mt-6 mb-8">
             <button
               onClick={toggleMode}
-              style={{
-                padding: '0.55rem 1.25rem',
-                border: '1px solid var(--color-border)',
-                background: 'var(--color-bg-2)',
-                color: 'var(--color-text)',
-                fontSize: '0.8rem',
-                fontWeight: 600,
-                letterSpacing: '0.04em',
-                cursor: 'pointer',
-                transition: 'background 0.2s ease, border-color 0.2s ease',
-              }}
-              className="toggle-btn"
+              className="toggle-btn py-[0.55rem] px-5 border border-[var(--color-border)] bg-[var(--color-bg-2)] text-[var(--color-text)] text-[0.8rem] font-semibold tracking-wider cursor-pointer transition-colors duration-200"
               aria-pressed={!showFull}
             >
               {showFull ? 'Switch to Summary' : 'Read Full Case Study'}
@@ -515,56 +289,20 @@ export default function CaseStudyClient({ study }: CaseStudyClientProps) {
           <Divider />
 
           {/* ── Body content — with smooth swap ── */}
-          <div
-            style={{
-              marginTop: '1rem',
-              opacity: 1,
-              transition: 'opacity 0.35s ease',
-            }}
-          >
+          <div className="mt-4 opacity-100 transition-opacity duration-350">
             {!showFull ? (
               /* Summary mode */
-              <div
-                style={{
-                  padding: '1.75rem',
-                  marginTop: '2rem',
-                  background: 'var(--color-bg-2)',
-                  border: '1px solid var(--color-border)',
-
-                }}
-              >
-                <p
-                  style={{
-                    fontSize: '0.65rem',
-                    fontWeight: 700,
-                    letterSpacing: '0.2em',
-                    textTransform: 'uppercase',
-                    color: 'var(--color-text-muted)',
-                    marginBottom: '1rem',
-                  }}
-                >
+              <div className="p-7 mt-8 bg-[var(--color-bg-2)] border border-[var(--color-border)]">
+                <p className="text-[0.65rem] font-bold tracking-[0.2em] uppercase text-[var(--color-text-muted)] mb-4">
                   Summary
                 </p>
-                <p
-                  style={{
-                    color: 'var(--color-text-muted)',
-                    lineHeight: 1.85,
-                    fontSize: '1rem',
-                    margin: 0,
-                  }}
-                >
+                <p className="text-[var(--color-text-muted)] leading-[1.85] text-[1rem] m-0">
                   {study.summary}
                 </p>
               </div>
             ) : (
               /* Full case study */
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '1.5rem',
-                }}
-              >
+              <div className="flex flex-col gap-6">
                 {study.sections.map((section, i) => (
                   <RenderSection key={i} section={section} />
                 ))}
@@ -576,61 +314,6 @@ export default function CaseStudyClient({ study }: CaseStudyClientProps) {
           <RelatedStudies slugs={study.relatedSlugs} />
         </div>
       </main>
-
-      <style>{`
-        .toggle-btn:hover { background: var(--color-bg-3) !important; }
-        
-        .case-study-html-content b,
-        .case-study-html-content strong {
-          color: var(--color-text);
-          font-weight: 700;
-        }
-        .case-study-html-content i,
-        .case-study-html-content em {
-          font-style: italic;
-        }
-        .case-study-html-content h1,
-        .case-study-html-content h2,
-        .case-study-html-content h3,
-        .case-study-html-content h4,
-        .case-study-html-content h5,
-        .case-study-html-content h6 {
-          font-family: var(--font-sans), sans-serif;
-          color: var(--color-text);
-          font-weight: 800;
-          line-height: 1.25;
-          margin-top: 1.5rem;
-          margin-bottom: 0.5rem;
-        }
-        .case-study-html-content h1 { font-size: 1.8rem; }
-        .case-study-html-content h2 { font-size: 1.6rem; }
-        .case-study-html-content h3 { font-size: 1.4rem; }
-        .case-study-html-content h4 { font-size: 1.2rem; }
-        .case-study-html-content h5 { font-size: 1.1rem; }
-        .case-study-html-content h6 { font-size: 1.0rem; }
-        
-        .case-study-html-content ul {
-          list-style-type: disc;
-          padding-left: 1.5rem;
-          margin: 0.5rem 0;
-          display: flex;
-          flex-direction: column;
-          gap: 0.4rem;
-        }
-        .case-study-html-content ol {
-          list-style-type: decimal;
-          padding-left: 1.5rem;
-          margin: 0.5rem 0;
-          display: flex;
-          flex-direction: column;
-          gap: 0.4rem;
-        }
-        .case-study-html-content li {
-          color: var(--color-text-muted);
-          line-height: 1.75;
-          font-size: 0.97rem;
-        }
-      `}</style>
     </>
   );
 }
