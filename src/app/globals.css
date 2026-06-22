@@ -86,6 +86,9 @@ body {
   width: 5px;
   z-index: 200;
   pointer-events: none;
+  /* Fade mask at top and bottom. Adjust 15% / 85% to change the fade zones. */
+  mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
 }
 
 #scroll-track::before {

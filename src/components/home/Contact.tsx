@@ -135,8 +135,7 @@ export default function Contact() {
         {/* ── Column 2: Email copy + Form ── */}
         <div className="contact-form-col">
 
-          {/* Row 1 — Email copy strip */}
-          <div className="contact-email-row  border-2 border-red-500">
+          <div className="contact-email-row">
             <div className="contact-email-display">
               {/* Email text is fully selectable / copyable by highlighting */}
               <span className="contact-email-text" style={{ userSelect: 'text' }}>
@@ -145,7 +144,7 @@ export default function Contact() {
             </div>
             <button
               onClick={handleEmailCopy}
-              className="contact-copy-btn border-b-2 border-red-500"
+              className="contact-copy-btn"
               aria-label="Copy email address"
               title={copied ? 'Copied!' : 'Copy to clipboard'}
             >
@@ -274,6 +273,7 @@ export default function Contact() {
           padding: 1rem 1.25rem;
           background: var(--color-bg-2);
           border: 1px solid var(--color-border);
+          border-bottom: none;
         }
         .contact-email-display {
           flex: 1;

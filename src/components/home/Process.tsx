@@ -96,6 +96,52 @@ export default function Process() {
     return () => ctx.revert();
   }, []);
 
+  const getStepIcon = (index: number) => {
+    const props = {
+      className: "w-6 h-6 text-text-muted transition-colors duration-300",
+      stroke: "currentColor",
+      strokeWidth: "2",
+      fill: "none",
+      strokeLinecap: "round" as const,
+      strokeLinejoin: "round" as const,
+    };
+
+    switch (index) {
+      case 0: // Discover
+        return (
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.3-4.3" />
+          </svg>
+        );
+      case 1: // Design
+        return (
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+            <path d="M12 20h9" />
+            <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
+          </svg>
+        );
+      case 2: // Test
+        return (
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+            <circle cx="12" cy="12" r="10" />
+            <path d="m9 12 2 2 4-4" />
+          </svg>
+        );
+      case 3: // Refine
+        return (
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+            <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+            <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" />
+            <path d="M16 16h5v5" />
+          </svg>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <div id="process" ref={containerRef}>
       <ScrollReveal className="process-header">
@@ -105,7 +151,7 @@ export default function Process() {
           body="I take a lean, iterative approach, starting with the problem, not the tool. Each project moves through discovery, design, and testing in tight feedback loops."
         />
       </ScrollReveal>
-
+ 
       <div className="process-sticky-wrap" id="process-sticky-wrap">
         <div className="process-sticky-inner" id="process-sticky-inner">
           {PROCESS_STEPS.map((step, index) => (
@@ -115,7 +161,9 @@ export default function Process() {
               id={`pcard-${index + 1}`}
             >
               <div className="pcard-left">
-                <span className="pcard-num">{step.num}</span>
+                <span className="pcard-icon" style={{ display: 'inline-flex', height: '24px' }}>
+                  {getStepIcon(index)}
+                </span>
                 <h3>{step.title}</h3>
                 <p>{step.description}</p>
               </div>

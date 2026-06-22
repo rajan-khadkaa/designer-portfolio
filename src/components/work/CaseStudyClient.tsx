@@ -16,7 +16,7 @@ import {
 } from '@/lib/case-studies';
 import MetadataBlock from '@/components/work/MetadataBlock';
 import CaseStudyNav from '@/components/work/CaseStudyNav';
-import BeforeAfterSlider from '@/components/work/BeforeAfterSlider';
+
 import RelatedStudies from '@/components/work/RelatedStudies';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import Divider from '@/components/ui/Divider';
@@ -105,17 +105,14 @@ function RenderImage({ section }: { section: SectionImage }) {
       <div
         style={{
           width: '100%',
-          aspectRatio: '16/9',
-          position: 'relative',
-          overflow: 'hidden',
           border: '1px solid var(--color-border)',
+          background: 'var(--color-bg-2)',
         }}
       >
-        <Image
+        <img
           src={section.src}
           alt={section.alt}
-          fill
-          style={{ objectFit: 'cover' }}
+          style={{ width: '100%', height: 'auto', display: 'block' }}
         />
       </div>
       {section.caption && (
@@ -166,13 +163,86 @@ function RenderList({ section }: { section: SectionList }) {
 
 function RenderBeforeAfter({ section }: { section: SectionBeforeAfter }) {
   return (
-    <BeforeAfterSlider
-      imageBefore={section.imageBefore}
-      imageAfter={section.imageAfter}
-      beforeLabel={section.beforeLabel}
-      afterLabel={section.afterLabel}
-      caption={section.caption}
-    />
+    <figure style={{ margin: '0.5rem 0', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      {/* Before/Old Mockup */}
+      <div
+        style={{
+          position: 'relative',
+          width: '100%',
+          border: '1px solid var(--color-border)',
+          background: 'var(--color-bg-2)',
+        }}
+      >
+        <img
+          src={section.imageBefore}
+          alt={section.beforeLabel}
+          style={{ width: '100%', height: 'auto', display: 'block' }}
+        />
+        <span
+          style={{
+            position: 'absolute',
+            top: '0.75rem',
+            left: '0.75rem',
+            padding: '0.25rem 0.75rem',
+            background: 'rgba(0, 0, 0, 0.7)',
+            color: '#ffffff',
+            fontSize: '0.7rem',
+            fontWeight: 700,
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+          }}
+        >
+          {section.beforeLabel}
+        </span>
+      </div>
+
+      {/* After/Iterated New Mockup */}
+      <div
+        style={{
+          position: 'relative',
+          width: '100%',
+          border: '1px solid var(--color-border)',
+          background: 'var(--color-bg-2)',
+        }}
+      >
+        <img
+          src={section.imageAfter}
+          alt={section.afterLabel}
+          style={{ width: '100%', height: 'auto', display: 'block' }}
+        />
+        <span
+          style={{
+            position: 'absolute',
+            top: '0.75rem',
+            left: '0.75rem',
+            padding: '0.25rem 0.75rem',
+            background: 'rgba(0, 0, 0, 0.7)',
+            color: '#ffffff',
+            fontSize: '0.7rem',
+            fontWeight: 700,
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+          }}
+        >
+          {section.afterLabel}
+        </span>
+      </div>
+
+      {section.caption && (
+        <figcaption
+          style={{
+            marginTop: '0.2rem',
+            fontSize: '0.78rem',
+            color: 'var(--color-text-muted)',
+            fontStyle: 'italic',
+            lineHeight: 1.55,
+            textAlign: 'center',
+          }}
+        >
+          {section.caption}
+        </figcaption>
+      )}
+    </figure>
   );
 }
 
