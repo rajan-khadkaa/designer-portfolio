@@ -1,202 +1,289 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import * as THREE from 'three';
 import { PROCESS_STEPS } from '@/lib/constants';
 import SectionHeader from '../ui/SectionHeader';
 import ScrollReveal from '../ui/ScrollReveal';
 
-gsap.registerPlugin(ScrollTrigger);
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+// Read a CSS custom property from :root as a hex-parseable color string.
+// Falls back to the supplied default if the variable is missing.
+function readCSSColor(varName: string, fallback: string): string {
+  if (typeof window === 'undefined') return fallback;
+  const raw = getComputedStyle(document.documentElement)
+    .getPropertyValue(varName)
+    .trim();
+  return raw || fallback;
+}
 
-export default function Process() {
-  const containerRef = useRef<HTMLDivElement>(null);
+// ─── Shared material factory ──────────────────────────────────────────────────
+// We make a slightly warm silver that reads clearly on both light and dark bg.
+function makeMat(color = 0xb8b8c0) {
+  return new THREE.MeshStandardMaterial({
+    color,
+    roughness: 0.18,
+    metalness: 0.88,
+    emissive: 0x111116,
+  });
+}
+
+// ─── Scene builders ───────────────────────────────────────────────────────────
+
+function buildDiscoverScene(renderer: THREE.WebGLRenderer) {
+  const scene = new THREE.Scene();
+  // Transparent – canvas background set via CSS variable
+  // scene.background not set → alpha pass-through
+
+  const camera = new THREE.PerspectiveCamera(34, 340 / 510, 0.1, 100);
+  camera.position.set(0, 0, 5.8);
+
+  // Stronger ambient so the tunnel reads on a light background too
+  scene.add(new THREE.AmbientLight(0xffffff, 1.2));
+  const keyLight = new THREE.DirectionalLight(0xffffff, 5.5);
+  keyLight.position.set(-5, 7, 3);
+  scene.add(keyLight);
+  const fillLight = new THREE.DirectionalLight(0xbbbbdd, 0.4);
+  fillLight.position.set(4, -3, 1);
+  scene.add(fillLight);
+
+  const group = new THREE.Group();
+  scene.add(group);
+
+  const mat = makeMat(0xc0c0cc);
+
+  const fw = 1.35, fh = 1.85, depth = 6.8, wallThick = 0.14;
+
+  const topWall = new THREE.Mesh(new THREE.BoxGeometry(fw, wallThick, depth), mat);
+  topWall.position.set(0, (fh - wallThick) / 2, -depth / 2);
+  group.add(topWall);
+
+  const botWall = new THREE.Mesh(new THREE.BoxGeometry(fw, wallThick, depth), mat);
+  botWall.position.set(0, -(fh - wallThick) / 2, -depth / 2);
+  group.add(botWall);
+
+  const leftWall = new THREE.Mesh(new THREE.BoxGeometry(wallThick, fh - wallThick * 2, depth), mat);
+  leftWall.position.set(-(fw - wallThick) / 2, 0, -depth / 2);
+  group.add(leftWall);
+
+  const rightWall = new THREE.Mesh(new THREE.BoxGeometry(wallThick, fh - wallThick * 2, depth), mat);
+  rightWall.position.set((fw - wallThick) / 2, 0, -depth / 2);
+  group.add(rightWall);
+
+  const dot = new THREE.Mesh(
+    new THREE.SphereGeometry(0.065, 16, 16),
+    new THREE.MeshBasicMaterial({ color: 0xffffff }),
+  );
+  dot.position.set(0, 0, -depth + 0.05);
+  group.add(dot);
+
+  const sweepLight = new THREE.PointLight(0xffffff, 10, 9);
+  group.add(sweepLight);
+
+  const clock = new THREE.Clock();
+  let animId: number;
+  function animate() {
+    animId = requestAnimationFrame(animate);
+    const t = clock.getElapsedTime();
+    group.rotation.x = Math.sin(t * 0.1) * 0.02;
+    group.rotation.y = Math.sin(t * 0.07) * 0.015;
+    const p = (t * 0.2) % 1.0;
+    sweepLight.position.set(0, 0, -depth + p * depth);
+    sweepLight.intensity = Math.sin(p * Math.PI) * 10;
+    renderer.render(scene, camera);
+  }
+  animate();
+  return () => cancelAnimationFrame(animId);
+}
+
+function buildDesignScene(renderer: THREE.WebGLRenderer) {
+  const scene = new THREE.Scene();
+
+  const camera = new THREE.PerspectiveCamera(34, 340 / 510, 0.1, 100);
+  camera.position.set(0, 0, 5.8);
+
+  scene.add(new THREE.AmbientLight(0xffffff, 3.5));
+  const keyLight = new THREE.DirectionalLight(0xffffff, 5.5);
+  keyLight.position.set(-5, 7, 3);
+  scene.add(keyLight);
+  const fillLight = new THREE.DirectionalLight(0xbbbbdd, 0.4);
+  fillLight.position.set(4, -3, 1);
+  scene.add(fillLight);
+
+  const group = new THREE.Group();
+  scene.add(group);
+
+  const mat = makeMat(0xb0b0bc);
+  const wireMat = new THREE.LineBasicMaterial({ color: 0x999999 });
+
+  const core = new THREE.Mesh(new THREE.BoxGeometry(1.1, 1.6, 0.7), mat);
+  group.add(core);
+
+  const wireframe = new THREE.LineSegments(
+    new THREE.EdgesGeometry(new THREE.BoxGeometry(1.3, 1.8, 0.85)),
+    wireMat,
+  );
+  group.add(wireframe);
+
+  const fragment = new THREE.Mesh(new THREE.BoxGeometry(0.25, 0.25, 0.25), mat);
+  fragment.position.set(0.55, 0.75, 0.35);
+  group.add(fragment);
+
+  const clock = new THREE.Clock();
+  let animId: number;
+  function animate() {
+    animId = requestAnimationFrame(animate);
+    const t = clock.getElapsedTime();
+    group.rotation.x = 0.25 + Math.sin(t * 0.12) * 0.025;
+    group.rotation.y = 0.35 + Math.sin(t * 0.085) * 0.018;
+    wireframe.position.y = Math.sin(t * 0.4) * 0.03;
+    fragment.position.x = 0.55 + Math.cos(t * 0.6) * 0.04;
+    fragment.rotation.y = t * 0.15;
+    renderer.render(scene, camera);
+  }
+  animate();
+  return () => cancelAnimationFrame(animId);
+}
+
+function buildTestScene(renderer: THREE.WebGLRenderer) {
+  const scene = new THREE.Scene();
+
+  const camera = new THREE.PerspectiveCamera(34, 340 / 510, 0.1, 100);
+  camera.position.set(0, 0, 5.8);
+
+  scene.add(new THREE.AmbientLight(0xffffff, 3.5));
+  const keyLight = new THREE.DirectionalLight(0xffffff, 5.5);
+  keyLight.position.set(-5, 7, 3);
+  scene.add(keyLight);
+  const fillLight = new THREE.DirectionalLight(0xbbbbdd, 0.4);
+  fillLight.position.set(4, -3, 1);
+  scene.add(fillLight);
+
+  const group = new THREE.Group();
+  scene.add(group);
+
+  const mat = makeMat(0xb0b0bc);
+
+  const cubeW = 1.1, cubeH = 1.5, cubeD = 1.2;
+  const cubeGroup = new THREE.Group();
+  const cube = new THREE.Mesh(new THREE.BoxGeometry(cubeW, cubeH, cubeD), mat);
+  cubeGroup.add(cube);
+
+  const diagonal = Math.sqrt(cubeW * cubeW + cubeH * cubeH);
+  const crackMat = new THREE.MeshBasicMaterial({ color: 0x555560 });
+  const crack = new THREE.Mesh(new THREE.BoxGeometry(diagonal, 0.022, 0.022), crackMat);
+  crack.rotation.z = Math.atan2(cubeH, cubeW);
+  crack.position.set(0, 0, cubeD / 2 + 0.001);
+  cubeGroup.add(crack);
+  group.add(cubeGroup);
+
+  const platform = new THREE.Mesh(new THREE.BoxGeometry(cubeW, 0.03, cubeW), mat);
+  platform.position.y = -cubeH / 2 - 0.4;
+  group.add(platform);
+
+  const clock = new THREE.Clock();
+  let animId: number;
+  function animate() {
+    animId = requestAnimationFrame(animate);
+    const t = clock.getElapsedTime();
+    group.rotation.x = 0.15 + Math.sin(t * 0.12) * 0.025;
+    group.rotation.y = -0.25 + Math.sin(t * 0.085) * 0.018;
+    cubeGroup.position.y = Math.sin(t * 1.1) * 0.05;
+    renderer.render(scene, camera);
+  }
+  animate();
+  return () => cancelAnimationFrame(animId);
+}
+
+function buildRefineScene(renderer: THREE.WebGLRenderer) {
+  const scene = new THREE.Scene();
+
+  const camera = new THREE.PerspectiveCamera(34, 340 / 510, 0.1, 100);
+  camera.position.set(0, 0, 5.8);
+
+  scene.add(new THREE.AmbientLight(0xffffff, 3.5));
+  const keyLight = new THREE.DirectionalLight(0xffffff, 7.5);
+  keyLight.position.set(-5, 7, 3);
+  scene.add(keyLight);
+  const fillLight = new THREE.DirectionalLight(0xbbbbdd, 0.4);
+  fillLight.position.set(4, -3, 1);
+  scene.add(fillLight);
+
+  const group = new THREE.Group();
+  scene.add(group);
+
+  const mat = makeMat(0xb0b0bc);
+
+  const leftPlate = new THREE.Mesh(new THREE.BoxGeometry(0.48, 1.6, 0.15), mat);
+  leftPlate.position.set(-0.51, 0, 0);
+  group.add(leftPlate);
+
+  const rightPlate = new THREE.Mesh(new THREE.BoxGeometry(0.48, 1.6, 0.15), mat);
+  rightPlate.position.set(0.51, 0, 0);
+  group.add(rightPlate);
+
+  const centerPlate = new THREE.Mesh(new THREE.BoxGeometry(0.52, 1.9, 0.22), mat);
+  centerPlate.position.set(0, 0, 0.02);
+  group.add(centerPlate);
+
+  const clock = new THREE.Clock();
+  let animId: number;
+  function animate() {
+    animId = requestAnimationFrame(animate);
+    const t = clock.getElapsedTime();
+    group.rotation.x = Math.sin(t * 0.1) * 0.02;
+    group.rotation.y = 0.22 + Math.sin(t * 0.07) * 0.015;
+    centerPlate.position.x = Math.sin(t * 1.3) * 0.09;
+    renderer.render(scene, camera);
+  }
+  animate();
+  return () => cancelAnimationFrame(animId);
+}
+
+const SCENE_BUILDERS = [buildDiscoverScene, buildDesignScene, buildTestScene, buildRefineScene];
+
+// ─── Single Three.js card ─────────────────────────────────────────────────────
+interface ThreeCardProps {
+  buildScene: (renderer: THREE.WebGLRenderer) => () => void;
+}
+
+function ThreeCard({ buildScene }: ThreeCardProps) {
+  const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!mountRef.current) return;
 
-    const cards = gsap.utils.toArray<HTMLElement>('.process-card-stack');
-    const totalCards = cards.length;
+    const W = 340, H = 510;
+    // alpha:true → renderer produces transparent pixels where no object is drawn
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(W, H);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.35;
+    // No setClearColor needed — alpha:true keeps it transparent by default
 
-    // ─── TWEAK KNOBS ─────────────────────────────────────────────────────────
-    // scrollDistanceMultiplier — scroll distance per card in vh %.
-    //   Lower = faster card transitions. Range: 80 (snappy) → 200 (slow).
-    const scrollDistanceMultiplier = 120;
+    mountRef.current.appendChild(renderer.domElement);
 
-    // gapY — pixel gap between stacked cards. Higher = more visible stack depth.
-    const gapY = 28;
+    const cancelAnim = buildScene(renderer);
 
-    // scaleStep — how much smaller each card behind is.
-    const scaleStep = 0.04;
-
-    // scrub — tightness of scroll follow. 0.1 = instant, 2 = floaty.
-    // 0.4 is responsive but not jittery (matches original HTML file).
-    const scrubValue = 0.4;
-    // ─────────────────────────────────────────────────────────────────────────
-
-    const ctx = gsap.context(() => {
-      // Set initial stacked positions
-      cards.forEach((card, index) => {
-        gsap.set(card, {
-          y: index * gapY,
-          scale: 1 - index * scaleStep,
-          rotationX: 0,
-          opacity: 1,
-          transformOrigin: 'bottom center',
-        });
-      });
-
-      ScrollTrigger.create({
-        trigger: '.process-sticky-wrap',
-        start: 'top top',
-        end: `+=${totalCards * scrollDistanceMultiplier}%`,
-        pin: '.process-sticky-inner',
-        pinSpacing: true,
-        scrub: scrubValue,
-        anticipatePin: 1,           // eliminates jump/stutter on entry
-        invalidateOnRefresh: true,
-        onUpdate: (self) => {
-          const progress = self.progress;
-          // totalCards - 1 segments so all 4 cards each get one full peel
-          const totalSegments = totalCards - 1;
-          const globalActiveProgress = progress * totalSegments;
-
-          cards.forEach((card, index) => {
-            const cardProgress = globalActiveProgress - index;
-
-            if (cardProgress > 0) {
-              // EXIT — card peels off upward with a 3D backward tilt
-              const exitProgress = Math.min(cardProgress, 1);
-              const targetY = -(window.innerHeight * 1.3) * exitProgress;
-              const targetRotationX = exitProgress * -30;
-
-              gsap.set(card, {
-                y: targetY,
-                rotationX: targetRotationX,
-                scale: 1,
-                opacity: 1 - exitProgress * 0.15,
-                transformOrigin: 'bottom center',
-              });
-            } else {
-              // WAITING IN STACK — closes up seamlessly as card above exits
-              const positionOffsetInStack = index - globalActiveProgress;
-              gsap.set(card, {
-                y: positionOffsetInStack * gapY,
-                rotationX: 0,
-                scale: 1 - positionOffsetInStack * scaleStep,
-                opacity: 1,
-                transformOrigin: 'bottom center',
-              });
-            }
-          });
-        },
-      });
-    }, containerRef);
-
-    return () => ctx.revert();
+    return () => {
+      cancelAnim();
+      renderer.dispose();
+      if (mountRef.current && renderer.domElement.parentNode === mountRef.current) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        mountRef.current.removeChild(renderer.domElement);
+      }
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // const getStepIcon = (index: number) => {
-  //   const props = {
-  //     className: "w-6 h-6 text-text-muted transition-colors duration-300",
-  //     stroke: "currentColor",
-  //     strokeWidth: "2",
-  //     fill: "none",
-  //     strokeLinecap: "round" as const,
-  //     strokeLinejoin: "round" as const,
-  //   };
+  return <div ref={mountRef} className="process-three-mount" />;
+}
 
-  //   switch (index) {
-  //     case 0: // Discover
-  //       return (
-  //         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
-  //           <circle cx="11" cy="11" r="8" />
-  //           <path d="m21 21-4.3-4.3" />
-  //         </svg>
-  //       );
-  //     case 1: // Design
-  //       return (
-  //         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
-  //           <path d="M12 20h9" />
-  //           <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
-  //         </svg>
-  //       );
-  //     case 2: // Test
-  //       return (
-  //         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
-  //           <circle cx="12" cy="12" r="10" />
-  //           <path d="m9 12 2 2 4-4" />
-  //         </svg>
-  //       );
-  //     case 3: // Refine
-  //       return (
-  //         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
-  //           <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
-  //           <path d="M3 3v5h5" />
-  //           <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" />
-  //           <path d="M16 16h5v5" />
-  //         </svg>
-  //       );
-  //     default:
-  //       return null;
-  //   }
-  // };
-
-  const getStepIcon = (index: number) => {
-    const props = {
-      className: "w-6 h-6 text-text-muted transition-colors duration-300",
-      stroke: "currentColor",
-      strokeWidth: "2",
-      fill: "none",
-      strokeLinecap: "round" as const,
-      strokeLinejoin: "round" as const,
-    };
-
-    switch (index) {
-      case 0: // Discover → Compass icon (more professional)
-        return (
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
-            <circle cx="12" cy="12" r="10" />
-            <path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z" />
-          </svg>
-        );
-      case 1: // Design → Layers2 icon (better represents design)
-        return (
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
-            <path d="M13 13.74a2 2 0 0 1-2 0L2.5 8.87a1 1 0 0 1 0-1.74L11 2.26a2 2 0 0 1 2 0l8.5 4.87a1 1 0 0 1 0 1.74z" />
-            <path d="m20 14.285 1.5.845a1 1 0 0 1 0 1.74L13 21.74a2 2 0 0 1-2 0l-8.5-4.87a1 1 0 0 1 0-1.74l1.5-.845" />
-          </svg>
-        );
-      case 2: // Test → MessageSquareCheck icon (represents feedback/testing)
-        return (
-          // <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
-          //   <path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.7.7 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z" />
-          //   <path d="m9 11 2 2 4-4" />
-          // </svg>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            {...props}
-          >
-            <path d="M21 10.656V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12.344" />
-            <path d="m9 11 3 3L22 4" />
-          </svg>
-        );
-      case 3: // Refine → RotateCwSquare icon (represents iteration/refinement)
-        return (
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
-            <path d="M20 9V7a2 2 0 0 0-2-2h-6" />
-            <path d="m15 2-3 3 3 3" />
-            <path d="M20 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2" />
-          </svg>
-        );
-      default:
-        return null;
-    }
-  };
-
+// ─── Process Section ──────────────────────────────────────────────────────────
+export default function Process() {
   return (
-    <div id="process" ref={containerRef}>
+    <div id="process">
       <ScrollReveal className="process-header">
         <SectionHeader
           eyebrow="How I work"
@@ -205,27 +292,24 @@ export default function Process() {
         />
       </ScrollReveal>
 
-      <div className="process-sticky-wrap" id="process-sticky-wrap">
-        <div className="process-sticky-inner" id="process-sticky-inner">
-          {PROCESS_STEPS.map((step, index) => (
-            <div
-              key={step.num}
-              className="process-card-stack"
-              id={`pcard-${index + 1}`}
-            >
-              <div className="pcard-left">
-                <span className="pcard-icon inline-flex h-6">
-                  {getStepIcon(index)}
-                </span>
-                <h3>{step.title}</h3>
-                <p>{step.description}</p>
+      <div className="process-rows">
+        {PROCESS_STEPS.map((step, index) => {
+          const isEven = index % 2 === 0;
+          return (
+            <ScrollReveal key={step.num}>
+              <div className={`process-row ${isEven ? 'process-row--left' : 'process-row--right'}`}>
+                <div className="process-row-visual">
+                  <ThreeCard buildScene={SCENE_BUILDERS[index]} />
+                </div>
+                <div className="process-row-content">
+                  <span className="process-row-num">{step.num}</span>
+                  <h3 className="process-row-title">{step.title}</h3>
+                  <p className="process-row-desc">{step.description}</p>
+                </div>
               </div>
-              <div className="pcard-right">
-                <span className="pcard-right-label">{step.num}</span>
-              </div>
-            </div>
-          ))}
-        </div>
+            </ScrollReveal>
+          );
+        })}
       </div>
     </div>
   );

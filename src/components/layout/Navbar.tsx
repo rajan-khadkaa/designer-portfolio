@@ -260,6 +260,20 @@ export default function Navbar() {
 
       {/* ── Mobile full-screen overlay ── */}
       <div className={`nav-mobile-overlay${mobileOpen ? ' open' : ''}`} aria-hidden={!mobileOpen}>
+
+        {/* Close button */}
+        <button
+          className="nav-mobile-close"
+          aria-label="Close menu"
+          onClick={() => setMobileOpen(false)}
+          style={{ color: 'var(--color-text)' }}
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+
         <ul className="nav-mobile-links">
           {NAV_LINKS.map((link) => {
             const isAnchor = link.href.startsWith('#');
