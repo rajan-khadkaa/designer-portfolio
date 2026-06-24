@@ -15,7 +15,9 @@ export interface Project {
   image: string;
   tag: string;
   slug: string;
+  bgColor?: string;
 }
+
 
 export interface ProcessStep {
   num: string;

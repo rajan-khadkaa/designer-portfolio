@@ -117,16 +117,30 @@ export default function Skills() {
       (mouse as any).element.removeEventListener('touchstart', (mouse as any).mousedown);
       (mouse as any).element.removeEventListener('touchmove', (mouse as any).mousemove);
       (mouse as any).element.removeEventListener('touchend', (mouse as any).mouseup);
-      // Re-add touch listeners that don't call preventDefault so clicks bubble
+      // Determine if a tag is being touched to selectively block page scrolling
+      let isDraggingTag = false;
+
       const touchStartHandler = (e: TouchEvent) => {
+        const target = e.target as HTMLElement;
+        const isTag = target.closest('.skill-physics-tag');
+
+        if (isTag) {
+          isDraggingTag = true;
+          e.preventDefault(); // Stop page scrolling when starting a tag drag
+        } else {
+          isDraggingTag = false;
+        }
+
         const touch = e.changedTouches[0];
         const rect = container.getBoundingClientRect();
         mouse.position.x = touch.clientX - rect.left;
         mouse.position.y = touch.clientY - rect.top;
         (mouse as any).button = 0;
-        // Don't preventDefault — let clicks on buttons still fire
       };
       const touchMoveHandler = (e: TouchEvent) => {
+        if (isDraggingTag) {
+          e.preventDefault(); // Prevent page scrolling during drag
+        }
         const touch = e.changedTouches[0];
         const rect = container.getBoundingClientRect();
         mouse.position.x = touch.clientX - rect.left;
@@ -134,9 +148,10 @@ export default function Skills() {
       };
       const touchEndHandler = () => {
         (mouse as any).button = -1;
+        isDraggingTag = false;
       };
-      container.addEventListener('touchstart', touchStartHandler, { passive: true });
-      container.addEventListener('touchmove', touchMoveHandler, { passive: true });
+      container.addEventListener('touchstart', touchStartHandler, { passive: false });
+      container.addEventListener('touchmove', touchMoveHandler, { passive: false });
       container.addEventListener('touchend', touchEndHandler, { passive: true });
 
       const mc = MouseConstraint.create(eng, {

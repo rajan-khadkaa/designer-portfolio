@@ -97,8 +97,8 @@ export default function Works() {
       {/* Scroll-animated project items */}
       <div className="works-scroll-list">
         {WORKS.map((project) => (
-          <div key={project.slug} className="works-scroll-item">
-            <div className="works-img-frame">
+          <div key={project.slug} className={`works-scroll-item works-item-${project.slug}`}>
+            <div className="works-img-frame" style={project.bgColor ? { backgroundColor: project.bgColor } : undefined}>
               <img src={project.image} alt={project.title} />
               <span className="works-item-tag">{project.tag}</span>
               <div className="works-info">

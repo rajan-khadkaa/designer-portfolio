@@ -70,7 +70,7 @@ export default function ContactThreeScene() {
 
     // --- SPARK WITH THEME-AWARE COLOR ---
     const sparkMat = new THREE.MeshBasicMaterial({
-      color: isDark ? 0xffffff : 0x888888, //here 0x888888 is light grey color to make it visible
+      color: isDark ? 0xffffff : 0x666666, //here 0x666666 is light grey color to make it visible
     });
     const spark = new THREE.Mesh(
       new THREE.SphereGeometry(0.03, 16, 16),

@@ -816,13 +816,18 @@ nav.at-top .theme-toggle-new .moon-icon {
 /* ── Large tablets in portrait (769px – 1100px) ── */
 @media (max-width: 1100px) {
   .works-scroll-item {
-    height: auto;
-    aspect-ratio: 16 / 9;
+    /* ─── ADJUST THIS HEIGHT TO TWEAK THE CARD HEIGHT ON PORTRAIT TABLETS/IPADS ─── */
+    height: 65vh;
+    aspect-ratio: auto;
     margin-bottom: 8vh;
   }
 
   .works-img-frame img {
+    object-fit: contain;
     object-position: center center;
+    /* Zoom in slightly so the main mockups inside the image appear larger */
+    transform: scale(1.5);
+    transition: transform 0.3s ease;
   }
 
   /* Row layout: project title left, "Case Study" link right */
@@ -841,13 +846,16 @@ nav.at-top .theme-toggle-new .moon-icon {
   .works-info-right {
     align-items: flex-end;
     text-align: right;
-    max-width: 160px;
+    max-width: 320px;
+    /* Expand so description info has space */
     flex-shrink: 0;
   }
 
-  /* Hide body description; title + link are enough */
+  /* Show description info on tablets */
   .works-item-desc {
-    display: none;
+    display: block;
+    font-size: 0.78rem;
+    margin-bottom: 0.5rem;
   }
 
   .works-item-title {
@@ -862,7 +870,8 @@ nav.at-top .theme-toggle-new .moon-icon {
   }
 
   .works-info-right {
-    max-width: 140px;
+    max-width: 260px;
+    /* Expand so description fits smaller tablets */
   }
 
   .works-item-title {
@@ -870,16 +879,12 @@ nav.at-top .theme-toggle-new .moon-icon {
   }
 }
 
-/* ── Phones (≤480px) — add min-height so 16:9 isn't too short.
-   On iPhone SE (375px): 16:9 = 211px; min-height raises it to 260px.
-   At 260px height: scale = 260/1024 → shows ~83% of image width.
-   On Galaxy Z Fold 5 (280px): 16:9 = 158px; min-height raises to 260px
-   and shows ~62% — still far better than the old 50% at 400px tall. ── */
+/* ── Phones (≤480px) ── */
 @media (max-width: 480px) {
   .works-scroll-item {
-    /* Ensure phones always have a reasonable height while
-       still using the landscape 16:9 aspect-ratio as the base */
-    min-height: 260px;
+    /* ─── ADJUST THIS HEIGHT TO TWEAK THE CARD HEIGHT ON SMARTPHONES ─── */
+    height: 60vh;
+    min-height: 320px;
     margin-bottom: 6vh;
   }
 
@@ -889,7 +894,13 @@ nav.at-top .theme-toggle-new .moon-icon {
   }
 
   .works-info-right {
-    max-width: 110px;
+    /* Only the link is here on phones, keep compact */
+    max-width: 140px;
+  }
+
+  /* Hide description info on smartphones to save vertical space */
+  .works-item-desc {
+    display: none;
   }
 
   .works-item-link {
@@ -1439,6 +1450,8 @@ nav.at-top .theme-toggle-new .moon-icon {
   white-space: nowrap;
   will-change: transform;
   opacity: 0;
+  touch-action: none;
+  /* Prevent standard scroll gestures from dragging */
 }
 
 /* ─── FOOTER WRAP MIGRATED FROM FOOTER.TSX ─── */
@@ -1877,7 +1890,7 @@ footer p {
   top: 72px;
   width: 48px;
   height: 48px;
-  border-radius: 50%;
+  border-radius: 100% !important;
   border: 1px solid var(--color-border);
   background: var(--color-bg-2);
   color: var(--color-text);
@@ -1931,18 +1944,36 @@ footer p {
    Breakpoint is 1200px to catch iPad Pro portrait at 1024px and similar. */
 @media (max-width: 1200px) {
   .cs-hero-image {
-    height: auto !important;
-    aspect-ratio: 16 / 9;
-    /* Keep a minimum so tiny phones don't get a microscopic hero */
-    min-height: 200px;
+    /* height: auto !important; */
+    /* aspect-ratio: 1920 / 1024 !important; */
+    /* Match background image aspect ratio exactly to prevent crop */
+    /* width: 100% !important; */
+    /* Full bleed edge-to-edge horizontally */
+    /* margin: 0 !important; */
+    /* Remove side gaps and margins */
+    /* background-color: white; */
+  }
+
+  .cs-hero-image img {
+    object-fit: cover !important;
+    margin-top: 1.5rem;
+    transform: scale(0.8)
+  }
+
+  /* Hide overlay shadow so the white bg blends smoothly with the page in light mode */
+  .cs-hero-overlay {
+    display: none !important;
   }
 }
 
-/* On phones, we accept a taller crop in exchange for a taller hero */
+/* On phones, also match ratio exactly and go edge-to-edge */
 @media (max-width: 480px) {
   .cs-hero-image {
-    min-height: 200px;
-    /* aspect-ratio already set above; just ensure min floor */
+    /* height: auto !important; */
+    /* aspect-ratio: 1920 / 1024 !important; */
+    /* width: 100% !important; */
+    /* margin: 0 !important; */
+
   }
 }
 

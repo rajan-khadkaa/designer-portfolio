@@ -24,7 +24,8 @@ export const WORKS = [
     tag: 'Mobile App Design',
     description:
       'A mobile app for parents with real-time location tracking, school schedules, and event notifications unified in one glanceable interface. Research-led, tested twice.',
-    image: '/case study resources/safetrack/safetrack-colored-bg.png',
+    image: '/case study resources/safetrack/safetrack.png',
+    bgColor: '#adcdbe',
   },
   {
     num: '02',
@@ -33,7 +34,8 @@ export const WORKS = [
     tag: 'Web App Design',
     description:
       'A web-based HR management system connecting recruitment, employee management, and payroll workflows. Built to eliminate the manual handoffs that cause delays and errors.',
-    image: '/case study resources/hrms/hrms-colored-bg.png',
+    image: '/case study resources/hrms/hrms.png',
+    bgColor: '#bbbbd7',
   },
 ];
 
