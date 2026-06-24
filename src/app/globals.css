@@ -1937,48 +1937,6 @@ footer p {
   }
 }
 
-/* ─── CASE STUDY PAGE RESPONSIVE ─── */
-/* Hero image: switch to landscape aspect-ratio on all tablets/phones so the
-   wide (1920×1024) bg image isn't portrait-cropped. The inline
-   style={{ height:'60vh' }} is overridden with !important.
-   Breakpoint is 1200px to catch iPad Pro portrait at 1024px and similar. */
-@media (max-width: 1200px) {
-  .cs-hero-image {
-    /* height: auto !important; */
-    /* aspect-ratio: 1920 / 1024 !important; */
-    /* Match background image aspect ratio exactly to prevent crop */
-    /* width: 100% !important; */
-    /* Full bleed edge-to-edge horizontally */
-    /* margin: 0 !important; */
-    /* Remove side gaps and margins */
-    /* background-color: white; */
-  }
-
-  .cs-hero-image img {
-    object-fit: cover !important;
-    margin-top: 1.5rem;
-    transform: scale(0.8)
-  }
-
-  /* Hide overlay shadow so the white bg blends smoothly with the page in light mode */
-  .cs-hero-overlay {
-    display: none !important;
-  }
-}
-
-/* On phones, also match ratio exactly and go edge-to-edge */
-@media (max-width: 480px) {
-  .cs-hero-image {
-    /* height: auto !important; */
-    /* aspect-ratio: 1920 / 1024 !important; */
-    /* width: 100% !important; */
-    /* margin: 0 !important; */
-
-  }
-}
-
-/* Case study nav — already hidden at ≤768px */
-
 /* Case study images: ensure they never overflow horizontally */
 .case-study-image-wrapper {
   width: 100%;
