@@ -1572,8 +1572,10 @@ nav.at-top .theme-toggle-new .moon-icon {
   }
 
   .footer-links {
-    flex-direction: column;
-    gap: 1.25rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
   }
 }
 
