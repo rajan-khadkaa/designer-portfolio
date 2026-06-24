@@ -2,15 +2,17 @@
 
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import { useThemeContext } from '@/providers/ThemeProvider';
 
 export default function ContactThreeScene() {
   const mountRef = useRef<HTMLDivElement>(null);
+  const { theme } = useThemeContext(); // ← Get current theme
+  const isDark = theme === 'dark';
 
   useEffect(() => {
     if (!mountRef.current) return;
 
     const W = 340, H = 510;
-    // alpha:true → transparent canvas background
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(W, H);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -20,12 +22,9 @@ export default function ContactThreeScene() {
     mountRef.current.appendChild(renderer.domElement);
 
     const scene = new THREE.Scene();
-    // No scene.background – alpha pass-through, CSS bg shows instead
-
     const camera = new THREE.PerspectiveCamera(34, W / H, 0.1, 100);
     camera.position.set(0, 0, 5.8);
 
-    // Brighter ambient so platforms read on light backgrounds
     scene.add(new THREE.AmbientLight(0xffffff, 2.5));
     const keyLight = new THREE.DirectionalLight(0xffffff, 5.5);
     keyLight.position.set(-5, 7, 3);
@@ -37,7 +36,6 @@ export default function ContactThreeScene() {
     const group = new THREE.Group();
     scene.add(group);
 
-    // Slightly blue-gray silver — visible on both light and dark bg
     const mat = new THREE.MeshStandardMaterial({
       color: 0xb0b0bc,
       roughness: 0.18,
@@ -70,16 +68,22 @@ export default function ContactThreeScene() {
     line.rotateX(Math.PI / 2);
     group.add(line);
 
+    // --- SPARK WITH THEME-AWARE COLOR ---
+    const sparkMat = new THREE.MeshBasicMaterial({
+      color: isDark ? 0xffffff : 0x888888, //here 0x888888 is light grey color to make it visible
+    });
     const spark = new THREE.Mesh(
       new THREE.SphereGeometry(0.03, 16, 16),
-      new THREE.MeshBasicMaterial({ color: 0xffffff }),
+      sparkMat
     );
     group.add(spark);
+
     const sparkLight = new THREE.PointLight(0xffffff, 2.5, 3.0);
     spark.add(sparkLight);
 
     const clock = new THREE.Clock();
     let animId: number;
+
     function animate() {
       animId = requestAnimationFrame(animate);
       const t = clock.getElapsedTime();
@@ -87,7 +91,7 @@ export default function ContactThreeScene() {
       group.rotation.x = Math.sin(t * 0.12) * 0.025;
       group.rotation.y = 0.20 + Math.sin(t * 0.085) * 0.018;
 
-      const progress = (Math.sin(t * 1.5) + 1) / 2;
+      const progress = (Math.sin(t * 0.3) + 1) / 2;
       spark.position.set(
         platLeft.position.x + dx * progress,
         platLeft.position.y + dy * progress,
@@ -102,11 +106,10 @@ export default function ContactThreeScene() {
       cancelAnimationFrame(animId);
       renderer.dispose();
       if (mountRef.current && renderer.domElement.parentNode === mountRef.current) {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
         mountRef.current.removeChild(renderer.domElement);
       }
     };
-  }, []);
+  }, [isDark]); // ← Re-run when theme changes
 
   return <div ref={mountRef} className="contact-three-mount" />;
 }

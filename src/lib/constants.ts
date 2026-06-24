@@ -30,7 +30,7 @@ export const WORKS = [
     num: '02',
     slug: 'hrms',
     title: 'HRMS',
-    tag: 'Web Application Design',
+    tag: 'Web App Design',
     description:
       'A web-based HR management system connecting recruitment, employee management, and payroll workflows. Built to eliminate the manual handoffs that cause delays and errors.',
     image: '/case study resources/hrms/hrms-colored-bg.png',

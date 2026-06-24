@@ -113,6 +113,31 @@ export default function Skills() {
       // Mouse constraint — do NOT lock inertia so rotation stays free
       const mouse = Mouse.create(container);
       (mouse as any).element.removeEventListener('mousewheel', (mouse as any).mousewheel);
+      // Remove touchstart listener so mobile buttons inside container can fire
+      (mouse as any).element.removeEventListener('touchstart', (mouse as any).mousedown);
+      (mouse as any).element.removeEventListener('touchmove', (mouse as any).mousemove);
+      (mouse as any).element.removeEventListener('touchend', (mouse as any).mouseup);
+      // Re-add touch listeners that don't call preventDefault so clicks bubble
+      const touchStartHandler = (e: TouchEvent) => {
+        const touch = e.changedTouches[0];
+        const rect = container.getBoundingClientRect();
+        mouse.position.x = touch.clientX - rect.left;
+        mouse.position.y = touch.clientY - rect.top;
+        (mouse as any).button = 0;
+        // Don't preventDefault — let clicks on buttons still fire
+      };
+      const touchMoveHandler = (e: TouchEvent) => {
+        const touch = e.changedTouches[0];
+        const rect = container.getBoundingClientRect();
+        mouse.position.x = touch.clientX - rect.left;
+        mouse.position.y = touch.clientY - rect.top;
+      };
+      const touchEndHandler = () => {
+        (mouse as any).button = -1;
+      };
+      container.addEventListener('touchstart', touchStartHandler, { passive: true });
+      container.addEventListener('touchmove', touchMoveHandler, { passive: true });
+      container.addEventListener('touchend', touchEndHandler, { passive: true });
 
       const mc = MouseConstraint.create(eng, {
         mouse,
@@ -167,6 +192,9 @@ export default function Skills() {
       return () => {
         window.removeEventListener('mouseup', handleMouseUp);
         window.removeEventListener('resize', handleResize);
+        container.removeEventListener('touchstart', touchStartHandler);
+        container.removeEventListener('touchmove', touchMoveHandler);
+        container.removeEventListener('touchend', touchEndHandler);
       };
     }
 
@@ -202,6 +230,9 @@ export default function Skills() {
           {/* Shuffle button — top-left */}
           <button
             onMouseDown={(e) => e.stopPropagation()}
+            onPointerDown={(e) => e.stopPropagation()}
+            onTouchStart={(e) => { e.stopPropagation(); }}
+            onTouchEnd={(e) => { e.stopPropagation(); e.preventDefault(); handleShuffle(); }}
             onClick={(e) => { e.stopPropagation(); handleShuffle(); }}
             className="skills-shuffle-btn"
           >

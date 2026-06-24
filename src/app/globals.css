@@ -10,6 +10,7 @@
   --color-bg-2: #ebebef;
   --color-bg-3: #e0e0e5;
   --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-2: rgba(21, 21, 21, 0.08);
   --color-text: #111114;
   --color-text-muted: rgba(17, 17, 20, 0.5);
   --color-tag-bg: rgba(0, 0, 0, 0.05);
@@ -28,6 +29,7 @@
   --color-bg-2: #111114;
   --color-bg-3: #18181c;
   --color-border: rgba(255, 255, 255, 0.07);
+  --color-border-2: rgba(216, 216, 216, 0.164);
   --color-text: #f0f0f4;
   --color-text-muted: rgba(240, 240, 244, 0.45);
   --color-tag-bg: rgba(255, 255, 255, 0.06);
@@ -580,11 +582,12 @@ nav.at-top .theme-toggle-new .moon-icon {
 
 /* ─── SHARED SECTION STYLES ─── */
 .section-divider {
-  height: 1px;
-  background: var(--color-border);
+  height: 0;
+  border: none;
+  border-top: 1.5px dashed var(--color-border-2);
   max-width: 1100px;
   margin: 0 auto;
-  transition: background var(--transition);
+  transition: border-color var(--transition);
 }
 
 .page-section {
@@ -681,6 +684,7 @@ nav.at-top .theme-toggle-new .moon-icon {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center center;
   display: block;
 }
 
@@ -689,9 +693,9 @@ nav.at-top .theme-toggle-new .moon-icon {
   position: absolute;
   inset: 0;
   background: linear-gradient(to bottom,
-      rgba(0, 0, 0, 0.05) 0%,
-      rgba(0, 0, 0, 0.0) 40%,
-      rgba(0, 0, 0, 0.55) 100%);
+      rgba(0, 0, 0, 0.18) 0%,
+      rgba(0, 0, 0, 0.08) 35%,
+      rgba(0, 0, 0, 0.72) 100%);
   pointer-events: none;
 }
 
@@ -774,6 +778,8 @@ nav.at-top .theme-toggle-new .moon-icon {
   text-decoration: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.4);
   padding-bottom: 2px;
+  /* Prevent arrow from wrapping to a new line on small containers */
+  white-space: nowrap;
   transition: border-color 0.2s, color 0.2s;
 }
 
@@ -799,52 +805,105 @@ nav.at-top .theme-toggle-new .moon-icon {
   -webkit-backdrop-filter: blur(6px);
 }
 
-@media (max-width: 768px) {
+/* Works thumbnail responsive — portrait phones + tablets
+   ─────────────────────────────────────────────────────
+   The images are 1920×1024 (1.875:1 landscape).
+   Using 16:9 (1.778:1) means the container is slightly
+   wider than the image ratio → object-fit:cover barely
+   crops the sides (<5% on most devices).
+   Breakpoint goes to 1100px to catch iPad Pro portrait (1024px). */
+
+/* ── Large tablets in portrait (769px – 1100px) ── */
+@media (max-width: 1100px) {
   .works-scroll-item {
-    height: 70vh;
-    margin-bottom: 10vh;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    margin-bottom: 8vh;
   }
 
+  .works-img-frame img {
+    object-position: center center;
+  }
+
+  /* Row layout: project title left, "Case Study" link right */
   .works-info {
-    flex-direction: column;
-    gap: 0.8rem;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 0.75rem;
+    padding: 1.5rem 1.8rem;
+  }
+
+  .works-info-left {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .works-info-right {
+    align-items: flex-end;
+    text-align: right;
+    max-width: 160px;
+    flex-shrink: 0;
+  }
+
+  /* Hide body description; title + link are enough */
+  .works-item-desc {
+    display: none;
+  }
+
+  .works-item-title {
+    font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+  }
+}
+
+/* ── Small tablets / large phones (481px – 768px) ── */
+@media (max-width: 768px) {
+  .works-info {
     padding: 1.2rem 1.4rem;
   }
 
   .works-info-right {
-    align-items: flex-start;
-    text-align: left;
-    max-width: 100%;
+    max-width: 140px;
   }
 
   .works-item-title {
     font-size: clamp(1.4rem, 7vw, 2rem);
   }
-
-  .works-item-desc {
-    font-size: 0.78rem;
-  }
 }
 
+/* ── Phones (≤480px) — add min-height so 16:9 isn't too short.
+   On iPhone SE (375px): 16:9 = 211px; min-height raises it to 260px.
+   At 260px height: scale = 260/1024 → shows ~83% of image width.
+   On Galaxy Z Fold 5 (280px): 16:9 = 158px; min-height raises to 260px
+   and shows ~62% — still far better than the old 50% at 400px tall. ── */
 @media (max-width: 480px) {
   .works-scroll-item {
-    height: 60vh;
-    margin-bottom: 8vh;
+    /* Ensure phones always have a reasonable height while
+       still using the landscape 16:9 aspect-ratio as the base */
+    min-height: 260px;
+    margin-bottom: 6vh;
   }
 
   .works-info {
-    padding: 1rem 1rem;
-    gap: 0.6rem;
+    padding: 0.85rem 1rem;
+    gap: 0.5rem;
+  }
+
+  .works-info-right {
+    max-width: 110px;
+  }
+
+  .works-item-link {
+    font-size: 0.7rem;
   }
 
   .works-item-title {
-    font-size: clamp(1.2rem, 8vw, 1.6rem);
+    font-size: clamp(1.1rem, 7.5vw, 1.5rem);
   }
 
   .works-item-tag {
-    top: 1rem;
-    right: 1rem;
-    font-size: 0.65rem;
+    top: 0.75rem;
+    right: 0.75rem;
+    font-size: 0.6rem;
   }
 }
 
@@ -1003,15 +1062,23 @@ nav.at-top .theme-toggle-new .moon-icon {
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    align-items: flex-start;
+    /* Center the canvas so it doesn't hug the left side on mobile */
+    align-items: center;
+  }
+
+  /* Keep text content left-aligned for readability */
+  .process-row-content {
+    align-self: flex-start;
   }
 
   .process-row-visual {
-    order: 0; /* always on top */
+    order: 0;
+    /* always on top */
   }
 
   .process-row-content {
-    order: 1; /* always below */
+    order: 1;
+    /* always below */
   }
 
   .process-three-mount,
@@ -1258,11 +1325,11 @@ nav.at-top .theme-toggle-new .moon-icon {
 
   .contact-beams-col {
     flex: none;
-    min-height: 300px;
+    min-height: 340px;
   }
 
   .contact-three-wrap {
-    min-height: 300px;
+    min-height: 340px;
   }
 
   .contact-three-mount,
@@ -1271,7 +1338,7 @@ nav.at-top .theme-toggle-new .moon-icon {
     max-width: 340px;
     height: auto !important;
     aspect-ratio: 340 / 510;
-    max-height: 300px;
+    max-height: 340px;
   }
 }
 
@@ -1280,17 +1347,18 @@ nav.at-top .theme-toggle-new .moon-icon {
     gap: 1.5rem;
   }
 
+  /* Taller contact canvas on smartphones so the animation doesn't look flat */
   .contact-beams-col {
-    min-height: 220px;
+    min-height: 300px;
   }
 
   .contact-three-wrap {
-    min-height: 220px;
+    min-height: 300px;
   }
 
   .contact-three-mount,
   .contact-three-mount canvas {
-    max-height: 220px;
+    max-height: 300px;
   }
 
   .contact-form {
@@ -1331,6 +1399,9 @@ nav.at-top .theme-toggle-new .moon-icon {
   cursor: pointer;
   pointer-events: all;
   user-select: none;
+  /* Allow taps to register on mobile */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   transition: color 0.15s, background 0.15s;
 }
 
@@ -1854,16 +1925,24 @@ footer p {
 }
 
 /* ─── CASE STUDY PAGE RESPONSIVE ─── */
-/* Hero image height on mobile */
-@media (max-width: 768px) {
+/* Hero image: switch to landscape aspect-ratio on all tablets/phones so the
+   wide (1920×1024) bg image isn't portrait-cropped. The inline
+   style={{ height:'60vh' }} is overridden with !important.
+   Breakpoint is 1200px to catch iPad Pro portrait at 1024px and similar. */
+@media (max-width: 1200px) {
   .cs-hero-image {
-    height: 45vh !important;
+    height: auto !important;
+    aspect-ratio: 16 / 9;
+    /* Keep a minimum so tiny phones don't get a microscopic hero */
+    min-height: 200px;
   }
 }
 
+/* On phones, we accept a taller crop in exchange for a taller hero */
 @media (max-width: 480px) {
   .cs-hero-image {
-    height: 35vh !important;
+    min-height: 200px;
+    /* aspect-ratio already set above; just ensure min floor */
   }
 }
 
