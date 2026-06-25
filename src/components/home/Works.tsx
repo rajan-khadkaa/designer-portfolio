@@ -109,7 +109,7 @@ export default function Works() {
                 <div className="works-info-right">
                   <p className="works-item-desc">{project.description}</p>
                   <Link href={`/work/${project.slug}`} className="works-item-link" target="_blank">
-                    Case study →
+                    Case study 🡥
                   </Link>
                 </div>
               </div>

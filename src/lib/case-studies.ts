@@ -98,8 +98,35 @@ const safetrack: CaseStudy = {
   },
   readTime: "8 min",
   readType: "Deep Dive",
-  summary:
-    "Safetrack is a mobile app that brings real-time location tracking, school schedules, and event notifications together in one place for parents. The project uncovered that the core problem was not missing tools but missing connection between them. Parents felt reactive rather than informed. After two rounds of user testing, the design was iterated to be glanceable by default, with key information visible on the home screen without any interaction.",
+  summary: `<strong>Overview</strong>
+<ul>
+  <li>Mobile app for parents to track child location, school schedule, and events.</li>
+</ul>
+
+<strong>Problem</strong>
+<ul>
+  <li>Parents used multiple disconnected tools and still missed things.</li>
+  <li>The issue was not missing tools. It was that none of them talked to each other.</li>
+</ul>
+
+<strong>Research</strong>
+<ul>
+  <li>Interviewed 8 parents using a conversational, close-circle approach.</li>
+  <li>Parents felt reactive, not informed. They found out about things too late.</li>
+</ul>
+
+<strong>Design Decisions</strong>
+<ul>
+  <li>Three principles: inform not alarm, glanceable by default, scales from one child to three.</li>
+  <li>Onboarding and daily use mapped as two separate flows with different needs.</li>
+</ul>
+
+<strong>Testing and Iteration</strong>
+<ul>
+  <li>Card carousel broke the glanceability goal. Replaced with a static summary view.</li>
+  <li>Large warning icon caused anxiety before users read the message. Replaced with information-first layout.</li>
+  <li>Both fixes re-tested and confirmed by the original feedback givers.</li>
+</ul>`,
   sections: [
     {
       type: "heading",
@@ -147,7 +174,7 @@ const safetrack: CaseStudy = {
       type: "list",
       listType: "unordered",
       items: [
-        "Children sometimes took too long to return home and parents had no way of knowing where they were without calling. Most parents said they had called their child's phone and gotten no answer at some point, which made the worry worse.",
+        "Children sometimes took too long to return home and parents had no way of knowing where they were without calling. Most parents said they had called their child's phone and got no answer at some point, which made the worry worse.",
         "Parents missed school timing fairly often, not because they did not care but because they genuinely lost track of time while doing other things. A reminder system that they did not have to set up manually would have helped.",
         "School events and holidays were communicated through printed papers that the child would bring home, and those papers would get lost or forgotten. By the time the parent found out about a holiday, they had already made plans that conflicted with it.",
         "Most apps they had tried only did one thing. One app for location, one for reminders, nothing that combined what they actually needed in one place.",
@@ -434,7 +461,7 @@ const safetrack: CaseStudy = {
 const hrms: CaseStudy = {
   slug: "hrms",
   title: "HRMS",
-  tag: "Web Application Design",
+  tag: "Web App Design",
   heroImage: "/case study resources/hrms/bg.png",
   metadata: {
     role: "UX Researcher & UI Designer",
@@ -444,8 +471,36 @@ const hrms: CaseStudy = {
   },
   readTime: "9 min",
   readType: "Deep Dive",
-  summary:
-    "HRMS is a web-based HR management system designed to connect recruitment, employee management, and payroll workflows in one place. Research showed that HR teams were not lacking features. They were struggling with disconnected, manual steps that caused errors and delays. A key design challenge was making the resigned role handoff visible, so vacant positions get flagged right away instead of falling through the cracks. Testing showed the dashboard needed an overall attendance view alongside individual records, which was added in iteration.",
+  summary: `<strong>Overview</strong>
+<ul>
+  <li>Web-based HR system for recruitment, employee management, and payroll.</li>
+</ul>
+
+<strong>Problem</strong>
+<ul>
+  <li>HR teams were not lacking features. Every step required moving data manually between systems.</li>
+  <li>Resigned roles had no automatic flag, so vacancies went unnoticed for weeks.</li>
+</ul>
+
+<strong>Research</strong>
+<ul>
+  <li>Reviewed Workday, BambooHR, and Zoho People for gaps and patterns.</li>
+  <li>Spoke informally with HR professionals about real daily friction.</li>
+</ul>
+
+<strong>Design Decisions</strong>
+<ul>
+  <li>Dashboard shows summary cards only. Full data lives on dedicated pages.</li>
+  <li>Candidate pipeline as a Kanban board for at-a-glance status tracking.</li>
+  <li>Color used semantically: green for active, red for rejected, amber for pending.</li>
+</ul>
+
+<strong>Testing and Iteration</strong>
+<ul>
+  <li>Dashboard showed individual attendance records instead of a team overview.</li>
+  <li>Replaced with a summary card showing aggregate rate and a trend line.</li>
+  <li>Preferred by 4 out of 5 HR colleagues over the original.</li>
+</ul>`,
   sections: [
     {
       type: "heading",

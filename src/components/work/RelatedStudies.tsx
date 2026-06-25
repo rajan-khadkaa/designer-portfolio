@@ -45,10 +45,10 @@ export default function RelatedStudies({ slugs, overrides = {} }: RelatedStudies
   return (
     <section className="mt-20">
       <div className="mb-8">
-        <p className="text-[0.72rem] font-semibold tracking-[0.2em] uppercase text-[var(--color-text-muted)] mb-2">
+        <p className="text-[0.72rem] font-semibold tracking-[0.2em] uppercase text-text-muted mb-2">
           Related Case Studies
         </p>
-        <div className="h-[1px] bg-[var(--color-border)]" />
+        <div className="h-px bg-border" />
       </div>
 
       <div
@@ -66,17 +66,17 @@ export default function RelatedStudies({ slugs, overrides = {} }: RelatedStudies
           >
             <article className="related-card">
               {tag && (
-                <span className="inline-block px-3 py-1 border border-[var(--color-border)] text-[0.68rem] font-semibold tracking-wider uppercase text-[var(--color-tag-text)] bg-[var(--color-tag-bg)] w-fit">
+                <span className="inline-block px-3 py-1 border border-border text-[0.68rem] font-semibold tracking-wider uppercase text-tag-text bg-tag-bg w-fit">
                   {tag}
                 </span>
               )}
 
-              <p className="font-display font-extrabold text-[clamp(1.1rem,2vw,1.45rem)] tracking-tight text-[var(--color-text)] leading-tight m-0">
+              <p className="font-display font-extrabold text-[clamp(1.1rem,2vw,1.45rem)] tracking-tight text-(--color-text) leading-tight m-0">
                 {title}
               </p>
 
               <span className="related-card-cta">
-                View Case Study →
+                View Case Study 🡥
               </span>
             </article>
           </Link>

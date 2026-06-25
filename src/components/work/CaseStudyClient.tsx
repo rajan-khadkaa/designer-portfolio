@@ -28,7 +28,7 @@ function RenderHeading({ section }: { section: SectionHeading }) {
     <ScrollReveal>
       <h2
         id={section.id}
-        className="font-display font-extrabold text-[clamp(1.25rem,2.8vw,1.75rem)] tracking-tight text-(--color-text) mt-14 mb-5 leading-[1.15] scroll-mt-20"
+        className="font-display font-extrabold text-[clamp(1.25rem,2.8vw,1.75rem)] tracking-tight text-(--color-text) mt-14 mb-1 leading-[1.15] scroll-mt-20"
       >
         {section.text}
       </h2>
@@ -89,16 +89,31 @@ function RenderImage({ section, onImageClick }: { section: SectionImage; onImage
 
 function RenderList({ section }: { section: SectionList }) {
   const Tag = section.listType === 'ordered' ? 'ol' : 'ul';
+
+  if (section.listType === 'ordered') {
+    return (
+      <ol className="flex flex-col gap-2.5 pl-6 list-decimal marker:text-text-muted">
+        {section.items.map((item, i) => (
+          <li
+            key={i}
+            className="text-text-muted leading-[1.75] text-[0.97rem] pl-1"
+            dangerouslySetInnerHTML={{ __html: item }}
+          />
+        ))}
+      </ol>
+    );
+  }
+
   return (
-    <Tag className="pl-6 m-0 flex flex-col gap-2.5">
+    <ul className="flex flex-col gap-2.5">
       {section.items.map((item, i) => (
         <li
           key={i}
-          className="text-text-muted leading-[1.75] text-[0.97rem]"
+          className="cs-list-item flex items-start text-text-muted leading-[1.75] text-[0.97rem]"
           dangerouslySetInnerHTML={{ __html: item }}
         />
       ))}
-    </Tag>
+    </ul>
   );
 }
 
@@ -167,7 +182,7 @@ function RenderReflection({ section }: { section: SectionReflection }) {
 
       {section.items.map((item, i) => (
         <div key={i} className="flex gap-4 items-start">
-          <span className="font-display font-extrabold text-[1.1rem] text-text-muted opacity-40 shrink-0 leading-[1.3] min-w-[1.5rem]">
+          <span className="font-display font-extrabold text-[1.1rem] text-text-muted opacity-40 shrink-0 leading-[1.3] min-w-6">
             {String(i + 1).padStart(2, '0')}
           </span>
           <div className="flex flex-col gap-1.5">
@@ -376,7 +391,7 @@ function ImageModal({ src, onClose, onPrev, onNext, hasPrev, hasNext }: ImageMod
 
   return (
     <div
-      className="fixed inset-0 z-[1000] flex flex-col justify-between bg-black/95 text-white select-none"
+      className="fixed inset-0 z-1000 flex flex-col justify-between bg-black/95 text-white select-none"
       onClick={onClose}
     >
       {/* Top bar with Close button - Floats in fixed/absolute position */}
@@ -528,6 +543,17 @@ export default function CaseStudyClient({ study }: CaseStudyClientProps) {
 
   const toggleMode = useCallback(() => setShowFull((prev) => !prev), []);
 
+  useEffect(() => {
+    // Hide scrollbar on mount
+    document.documentElement.classList.add('hide-scrollbar');
+    document.body.classList.add('hide-scrollbar');
+    return () => {
+      // Restore scrollbar on unmount
+      document.documentElement.classList.remove('hide-scrollbar');
+      document.body.classList.remove('hide-scrollbar');
+    };
+  }, []);
+
   const allImages = useMemo(() => {
     const list: string[] = [];
     if (study.heroImage) {
@@ -556,12 +582,12 @@ export default function CaseStudyClient({ study }: CaseStudyClientProps) {
   return (
     <>
       {/* Fixed right-edge navigation — not in document flow */}
-      <CaseStudyNav items={navItems} />
+      <CaseStudyNav key={showFull ? 'full' : 'summary'} items={navItems} />
 
       <main>
         {/* ── Hero image ── */}
         <div
-          className="w-full relative overflow-hidden h-[40vh] cursor-zoom-in"
+          className="bg-bg-3 w-full relative overflow-hidden h-[40vh] cursor-zoom-in"
           onClick={() => handleImageClick(study.heroImage)}
         >
           <Image
@@ -569,9 +595,9 @@ export default function CaseStudyClient({ study }: CaseStudyClientProps) {
             alt={`${study.title} hero`}
             fill
             priority
-            className="object-cover w-full mt-1"
+            className="object-cover w-full mt-8"
           />
-          <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-black/55" />
+          {/* <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-tag-bg)" /> */}
         </div>
 
         {/* ── Content wrapper ── */}
@@ -601,7 +627,7 @@ export default function CaseStudyClient({ study }: CaseStudyClientProps) {
           {/* Eyebrow + Title */}
           <ScrollReveal>
             <p className="text-[0.72rem] font-semibold tracking-[0.2em] uppercase text-text-muted mb-2.5">
-              Case Study · {study.tag}
+              Case Study • {study.tag}
             </p>
             <h1 className="font-display font-extrabold text-[clamp(2rem,5vw,3.2rem)] tracking-tight leading-[1.05] text-(--color-text) mb-8">
               {study.title}
@@ -636,9 +662,31 @@ export default function CaseStudyClient({ study }: CaseStudyClientProps) {
                 <p className="text-[0.65rem] font-bold tracking-[0.2em] uppercase text-text-muted mb-4">
                   Summary
                 </p>
-                <p className="text-text-muted leading-[1.85] text-[1rem] m-0">
-                  {study.summary}
-                </p>
+                <div
+                  className="case-study-html-content text-text-muted leading-[1.85] text-[0.97rem]"
+                  dangerouslySetInnerHTML={{ __html: study.summary }}
+                />
+                <div className="mt-8 pt-4 border-t border-border flex justify-start">
+                  <button
+                    onClick={() => setShowFull(true)}
+                    className="p-0 border-0 bg-transparent text-(--color-text) font-bold text-[0.9rem] hover:opacity-80 cursor-pointer transition-opacity duration-200 flex items-center gap-1.5 underline"
+                  >
+                    Read Full Case Study
+                    {/* <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                      <polyline points="12 5 19 12 12 19" />
+                    </svg> */}
+                  </button>
+                </div>
               </div>
             ) : (
               /* Full case study */

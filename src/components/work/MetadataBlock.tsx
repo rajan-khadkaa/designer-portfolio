@@ -31,8 +31,8 @@ export default function MetadataBlock({
       </div>
 
       {/* Read time line */}
-      <p className="mt-5 text-[0.78rem] text-[var(--color-text-muted)] tracking-wide">
-        {readTime} · {readType}
+      <p className="mt-5 text-[0.78rem] text-text-muted tracking-wide">
+        {readTime} • {readType}
       </p>
     </div>
   );

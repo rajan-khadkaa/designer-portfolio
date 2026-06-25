@@ -21,7 +21,7 @@ const syne = Syne({
 });
 
 export const metadata: Metadata = {
-  title: 'Rajan · Portfolio',
+  title: 'Rajan • Portfolio',
   description: 'Building thoughtful interfaces and creative experiences.',
 };
 

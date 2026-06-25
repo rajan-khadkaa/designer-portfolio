@@ -74,14 +74,14 @@ export default function CaseStudyNav({ items }: CaseStudyNavProps) {
       {/* Fixed right-edge bar stack */}
       <div
         ref={containerRef}
-        className="cs-nav-root fixed right-0 top-1/2 -translate-y-1/2 z-[200] flex items-end flex-col"
+        className="cs-nav-root fixed right-0 top-1/2 -translate-y-1/2 z-200 flex items-end flex-col"
         onMouseEnter={() => setIsOpen(true)}
         onMouseLeave={() => setIsOpen(false)}
       >
         {/* The popup box — appears on hover over the bars cluster */}
         {isOpen && (
           <div
-            className="cs-nav-popup absolute right-7 top-1/2 -translate-y-1/2 bg-[var(--color-bg-2)] border border-[var(--color-border)] w-[220px] overflow-y-auto"
+            className="cs-nav-popup absolute right-7 top-1/2 -translate-y-1/2 bg-bg-2 border border-border w-[220px] overflow-y-auto"
             data-lenis-prevent
             style={{
               maxHeight: `${MAX_BARS * 38}px`,
@@ -101,14 +101,14 @@ export default function CaseStudyNav({ items }: CaseStudyNavProps) {
                   style={{
                     background: isActive ? 'var(--color-bg-3)' : 'transparent',
                   }}
-                  className="cs-nav-popup-item flex items-center justify-between gap-2.5 py-[0.55rem] px-3.5 no-underline border-b border-[var(--color-border)] transition-colors duration-200"
+                  className="cs-nav-popup-item flex items-center justify-between gap-2.5 py-[0.55rem] px-3.5 no-underline border-b border-border transition-colors duration-200"
                 >
                   <span
                     style={{
-                      fontWeight: isActive ? 600 : 400,
+                      fontWeight: isActive ? 600 : 500,
                       color: isActive ? 'var(--color-text)' : 'var(--color-text-muted)',
                     }}
-                    className="text-[0.72rem] tracking-wide overflow-hidden text-ellipsis whitespace-nowrap flex-1"
+                    className="text-[0.72rem] font-medium tracking-wide overflow-hidden text-ellipsis whitespace-nowrap flex-1"
                   >
                     {text}
                   </span>
