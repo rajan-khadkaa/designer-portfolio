@@ -274,7 +274,7 @@ function ThreeCard({ buildScene }: ThreeCardProps) {
         mountRef.current.removeChild(renderer.domElement);
       }
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <div ref={mountRef} className="process-three-mount" />;
@@ -287,7 +287,7 @@ export default function Process() {
       <ScrollReveal className="process-header">
         <SectionHeader
           eyebrow="How I work"
-          title="From idea to product"
+          title="From idea to product."
           body="I take a lean, iterative approach, starting with the problem, not the tool. Each project moves through discovery, design, and testing in tight feedback loops."
         />
       </ScrollReveal>

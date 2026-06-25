@@ -39,9 +39,12 @@ export default function Hero() {
       </video>
       <div id="hero-overlay" />
       <div className="hero-text-layer">
-        <p className="hero-eyebrow">Hi, I am Rajan</p>
+        {/* <p className="hero-eyebrow">Hi, I am Rajan</p>
         <h1 className="hero-headline">I am a designer.</h1>
-        <p className="hero-sub-text">Building thoughtful interfaces and creative experiences.</p>
+        <p className="hero-sub-text">Building thoughtful interfaces and creative experiences.</p> */}
+        <p className="hero-eyebrow">Hi, I am Rajan</p>
+        <h1 className="hero-headline">UI/UX Designer</h1>
+        <p className="hero-sub-text">Designing from research to pixel.</p>
       </div>
 
       {showCanvas && <HeroCanvas />}
