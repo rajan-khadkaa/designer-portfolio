@@ -158,7 +158,7 @@ nav {
   justify-content: space-between;
   padding: 0 2.5rem;
   height: 60px;
-  transition: background var(--transition), border-color var(--transition);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background var(--transition), border-color var(--transition);
 }
 
 /* ─── HAMBURGER BUTTON ─── */
@@ -463,10 +463,23 @@ nav.at-top .theme-toggle-handle {
 /* Light mode at-top state overrides */
 nav.at-top .theme-toggle-new .sun-icon {
   color: #111114 !important;
+  /* Active, dark on white handle */
 }
 
 nav.at-top .theme-toggle-new .moon-icon {
-  color: rgba(255, 255, 255, 0.55) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  /* Inactive, clearly visible white */
+}
+
+/* Dark mode at-top state overrides */
+.dark nav.at-top .theme-toggle-new .moon-icon {
+  color: #111114 !important;
+  /* Active, dark on white handle */
+}
+
+.dark nav.at-top .theme-toggle-new .sun-icon {
+  color: rgba(255, 255, 255, 0.65) !important;
+  /* Inactive, clearly visible translucent white */
 }
 
 /* ─── HERO ─── */
@@ -1959,8 +1972,8 @@ footer p {
     position: fixed;
     left: 1.25rem;
     top: 24px;
-    width: 34px;
-    height: 34px;
+    width: 38px;
+    height: 38px;
     border-radius: 100% !important;
     padding: 0;
     margin: 0;
@@ -1975,6 +1988,44 @@ footer p {
 
   .sticky-back-btn:hover {
     transform: none;
+  }
+
+  /* Scale theme toggle on mobile */
+  .theme-toggle-new {
+    width: 70px;
+    height: 38px;
+    padding: 3px;
+  }
+
+  .theme-toggle-handle {
+    width: 30px;
+    height: 30px;
+    left: 3px;
+    top: 3px;
+  }
+
+  .theme-toggle-new .moon-icon {
+    left: 6px !important;
+    top: 6px !important;
+  }
+
+  .theme-toggle-new .sun-icon {
+    right: 6px !important;
+    top: 6px !important;
+  }
+
+  /* Scale CV/Resume buttons on mobile */
+  .cv-btn-group {
+    height: 38px;
+  }
+
+  .cv-btn-view {
+    padding: 0 16px;
+    font-size: 0.8rem;
+  }
+
+  .cv-btn-download {
+    width: 38px;
   }
 }
 
@@ -2077,7 +2128,7 @@ footer p {
 .cv-btn-group {
   display: inline-flex;
   align-items: stretch;
-  height: 34px;
+  /* height: 42px; */
   border: 1px solid var(--color-border);
   background: #e5e5e5;
   border-radius: 9999px !important;
@@ -2092,8 +2143,8 @@ footer p {
 .cv-btn-view {
   display: flex;
   align-items: center;
-  padding: 0 14px;
-  font-size: 0.76rem;
+  /* padding: 0 14px; */
+  /* font-size: 0.76rem; */
   font-weight: 600;
   color: var(--color-text);
   text-decoration: none;
@@ -2116,7 +2167,7 @@ footer p {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
+  /* width: 32px; */
   color: var(--color-text);
   text-decoration: none;
   transition: background-color 0.2s ease, color 0.2s ease, border-left-color 0.2s ease;
@@ -2137,24 +2188,115 @@ footer p {
   border-left-color: transparent;
 }
 
-/* Light mode hero at-top transparent state overrides */
-nav.at-top .cv-btn-group {
-  border-color: rgba(255, 255, 255, 0.3);
-  background: rgba(255, 255, 255, 0.15);
+/* Dark mode hero at-top transparent state overrides */
+.dark nav.at-top .theme-toggle-new {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
 }
 
-nav.at-top .cv-btn-view,
-nav.at-top .cv-btn-download {
-  color: #ffffff;
+/* ─── HERO CV BUTTON ─── */
+.hero-cv-container {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  pointer-events: auto;
+  /* Enable hover/pointer events on overlay */
 }
 
-nav.at-top .cv-btn-download {
-  border-left-color: rgba(255, 255, 255, 0.3);
+.hero-cv-group.cv-btn-group {
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  background: rgba(255, 255, 255, 0.18) !important;
+  border-radius: 0 !important;
+  /* Sharp corners inside the Hero section */
 }
 
-nav.at-top .cv-btn-view:hover,
-nav.at-top .cv-btn-download:hover {
-  background: #ffffff;
-  color: #09090b;
-  border-left-color: transparent;
+.dark .hero-cv-group.cv-btn-group {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-radius: 0 !important;
+  /* Sharp corners inside the Hero section */
+}
+
+.hero-cv-group .cv-btn-view,
+.hero-cv-group .cv-btn-download {
+  color: #ffffff !important;
+  cursor: pointer !important;
+  /* Ensure pointer cursor shows up */
+}
+
+.hero-cv-group .cv-btn-download {
+  border-left-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.dark .hero-cv-group .cv-btn-download {
+  border-left-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.hero-cv-group .cv-btn-view:hover,
+.hero-cv-group .cv-btn-download:hover {
+  background: #111114 !important;
+  color: #ffffff !important;
+  border-left-color: transparent !important;
+}
+
+.dark .hero-cv-group .cv-btn-view:hover,
+.dark .hero-cv-group .cv-btn-download:hover {
+  background: #ffffff !important;
+  color: #09090b !important;
+  border-left-color: transparent !important;
+}
+
+/* ─── BACK TO TOP BUTTON ─── */
+.scroll-to-top-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 1.25rem;
+  width: 38px;
+  height: 38px;
+  border-radius: 100% !important;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-3);
+  color: var(--color-text);
+  display: none;
+  /* Hidden on desktop */
+  align-items: center;
+  justify-content: center;
+  z-index: 140;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.scroll-to-top-btn:hover {
+  background: var(--color-bg-2);
+}
+
+@media (max-width: 1200px) {
+  .scroll-to-top-btn {
+    display: flex;
+  }
+}
+
+@media (max-width: 480px) {
+  .scroll-to-top-btn {
+    bottom: 20px;
+    right: 1.0rem;
+  }
+}
+
+/* ─── SCROLL AUTO HIDE ─── */
+#navbar.nav-hidden {
+  transform: translateY(-100%);
+}
+
+.case-study-theme-toggle,
+.sticky-back-btn,
+.scroll-to-top-btn {
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, top var(--transition), right var(--transition), left var(--transition), bottom var(--transition);
+}
+
+.case-study-theme-toggle.nav-hidden,
+.sticky-back-btn.nav-hidden,
+.scroll-to-top-btn.nav-hidden {
+  opacity: 0 !important;
+  pointer-events: none !important;
 }

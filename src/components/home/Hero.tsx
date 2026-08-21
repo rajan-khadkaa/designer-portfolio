@@ -45,6 +45,39 @@ export default function Hero() {
         <p className="hero-eyebrow">Hi, I am Rajan</p>
         <h1 className="hero-headline">UI/UX Designer</h1>
         <p className="hero-sub-text">Designing from research to pixel.</p>
+        <div className="hero-cv-container min-w-fit">
+          <div className="cv-btn-group hero-cv-group min-w-fit h-8 lg:h-10">
+            <a
+              href="/portfolio%20resources/Rajan-Khadka-Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cv-btn-view lg:px-4 text-sm"
+            >
+              Resume
+            </a>
+            <a
+              href="/portfolio%20resources/Rajan-Khadka-Resume.pdf"
+              download="Rajan-Khadka-Resume.pdf"
+              className="cv-btn-download lg:px-4 min-w-fit"
+              aria-label="Download Resume"
+            >
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+            </a>
+          </div>
+        </div>
       </div>
 
       {showCanvas && <HeroCanvas />}

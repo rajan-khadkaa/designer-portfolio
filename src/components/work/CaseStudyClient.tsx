@@ -3,6 +3,7 @@
 import React, { useState, useMemo, useCallback, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useLenis } from '@/providers/SmoothScrollProvider';
 import {
   CaseStudy,
   CaseStudySection,
@@ -531,7 +532,10 @@ interface CaseStudyClientProps {
 }
 
 export default function CaseStudyClient({ study }: CaseStudyClientProps) {
+  const lenis = useLenis();
   const [showFull, setShowFull] = useState(true);
+  const [visible, setVisible] = useState(true);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   const navItems = useMemo(
     () =>
@@ -542,6 +546,60 @@ export default function CaseStudyClient({ study }: CaseStudyClientProps) {
   );
 
   const toggleMode = useCallback(() => setShowFull((prev) => !prev), []);
+
+  useEffect(() => {
+    const scrollUpThreshold = 15;
+    const scrollDownThreshold = 10;
+    
+    let lastY = window.scrollY;
+    let accumulated = 0;
+
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      const delta = currentY - lastY;
+
+      setShowScrollTop(currentY > 400);
+
+      if (currentY < 50) {
+        setVisible(true);
+        accumulated = 0;
+        lastY = currentY;
+        return;
+      }
+
+      if (delta > 0) {
+        // Scrolling down
+        accumulated = Math.max(0, accumulated) + delta;
+        if (accumulated > scrollDownThreshold) {
+          setVisible(false);
+          accumulated = 0;
+        }
+      } else if (delta < 0) {
+        // Scrolling up
+        accumulated = Math.min(0, accumulated) + delta;
+        if (Math.abs(accumulated) > scrollUpThreshold) {
+          setVisible(true);
+          accumulated = 0;
+        }
+      }
+
+      lastY = currentY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    if (lenis) {
+      lenis.scrollTo(0, { duration: 1.2 });
+    } else {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   useEffect(() => {
     // Hide scrollbar on mount
@@ -605,7 +663,7 @@ export default function CaseStudyClient({ study }: CaseStudyClientProps) {
           {/* Sticky Back button */}
           <Link
             href="/#works"
-            className="sticky-back-btn"
+            className={`sticky-back-btn${!visible ? ' nav-hidden' : ''}`}
             title="Back to Work"
           >
             <svg
@@ -713,6 +771,29 @@ export default function CaseStudyClient({ study }: CaseStudyClientProps) {
           hasPrev={activeImgIndex > 0}
           hasNext={activeImgIndex < allImages.length - 1}
         />
+      )}
+
+      {/* Back to Top button */}
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          className={`scroll-to-top-btn${!visible ? ' nav-hidden' : ''}`}
+          aria-label="Scroll to top"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <line x1="12" y1="19" x2="12" y2="5" />
+            <polyline points="5 12 12 5 19 12" />
+          </svg>
+        </button>
       )}
     </>
   );

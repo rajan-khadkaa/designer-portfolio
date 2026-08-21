@@ -17,6 +17,7 @@ export default function Navbar() {
   const [show3d, setShow3d] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('');
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [visible, setVisible] = useState(true);
 
   const isHomePage = pathname === '/';
   const isCaseStudyPage = pathname.startsWith('/work/') && pathname !== '/work';
@@ -136,6 +137,47 @@ export default function Navbar() {
     };
   }, [lenis]);
 
+  useEffect(() => {
+    const scrollUpThreshold = 15;
+    const scrollDownThreshold = 10;
+    
+    let lastY = window.scrollY;
+    let accumulated = 0;
+
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      const delta = currentY - lastY;
+
+      if (currentY < 50) {
+        setVisible(true);
+        accumulated = 0;
+        lastY = currentY;
+        return;
+      }
+
+      if (delta > 0) {
+        // Scrolling down
+        accumulated = Math.max(0, accumulated) + delta;
+        if (accumulated > scrollDownThreshold) {
+          setVisible(false);
+          accumulated = 0;
+        }
+      } else if (delta < 0) {
+        // Scrolling up
+        accumulated = Math.min(0, accumulated) + delta;
+        if (Math.abs(accumulated) > scrollUpThreshold) {
+          setVisible(true);
+          accumulated = 0;
+        }
+      }
+
+      lastY = currentY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const handleToggle3D = () => {
     const nextVal = !show3d;
     setShow3d(nextVal);
@@ -198,17 +240,17 @@ export default function Navbar() {
   const isAtTop = !scrolled;
   const isLightTheme = theme === 'light';
 
-  const atTopClass = isAtTop && isLightTheme && isHomePage ? 'at-top' : '';
+  const atTopClass = isAtTop && isHomePage ? 'at-top' : '';
   const scrolledClass = scrolled ? 'scrolled' : '';
   const notHeroClass = !isHomePage ? 'not-hero' : '';
 
   // Hamburger colour: white on hero at-top, otherwise theme text colour
   const hamburgerColor =
-    isAtTop && isLightTheme && isHomePage ? 'rgba(255,255,255,0.9)' : 'var(--color-text)';
+    isAtTop && isHomePage ? 'rgba(255,255,255,0.9)' : 'var(--color-text)';
 
   if (isCaseStudyPage) {
     return (
-      <div className="case-study-theme-toggle">
+      <div className={`case-study-theme-toggle${!visible ? ' nav-hidden' : ''}`}>
         <ThemeToggle />
       </div>
     );
@@ -265,39 +307,6 @@ export default function Navbar() {
         </ul>
 
         <div className="nav-right">
-          {isHomePage && (
-            <div className="cv-btn-group">
-              <a
-                href="/portfolio%20resources/Rajan-Khadka-Resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cv-btn-view"
-              >
-                Resume
-              </a>
-              <a
-                href="/portfolio%20resources/Rajan-Khadka-Resume.pdf"
-                download="Rajan-Khadka-Resume.pdf"
-                className="cv-btn-download"
-                aria-label="Download Resume"
-              >
-                <svg
-                  width="13"
-                  height="13"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                  <polyline points="7 10 12 15 17 10" />
-                  <line x1="12" y1="15" x2="12" y2="3" />
-                </svg>
-              </a>
-            </div>
-          )}
           <ThemeToggle />
 
           {/* Hamburger button — visible only on mobile via CSS */}
