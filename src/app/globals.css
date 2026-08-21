@@ -331,19 +331,19 @@ nav.at-top .theme-toggle-new:hover {
   background: rgba(255, 255, 255, 0.25);
 }
 
-nav.scrolled {
-  background: color-mix(in srgb, var(--color-bg) 85%, transparent);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--color-border);
-}
-
 /* On non-hero pages (blog, about, work…) the navbar is always visible
    with the correct theme colour, no at-top override needed. */
 nav.not-hero {
   background: color-mix(in srgb, var(--color-bg) 92%, transparent);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+nav.scrolled {
+  background: var(--color-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -1928,13 +1928,13 @@ footer p {
 /* Sticky back button for case study */
 .sticky-back-btn {
   position: fixed;
-  left: 12px;
-  top: 72px;
+  left: 16px;
+  top: 30px;
   width: 48px;
   height: 48px;
   border-radius: 100% !important;
   border: 1px solid var(--color-border);
-  background: var(--color-bg-2);
+  background: var(--color-bg-3);
   color: var(--color-text);
   display: flex;
   align-items: center;
@@ -2043,4 +2043,112 @@ footer p {
 .hide-scrollbar {
   -ms-overflow-style: none !important;
   scrollbar-width: none !important;
+}
+
+/* ─── CASE STUDY FIXED THEME TOGGLE ─── */
+.case-study-theme-toggle {
+  position: fixed;
+  right: 2.5rem;
+  top: 30px;
+  z-index: 150;
+}
+
+@media (max-width: 1200px) {
+  .case-study-theme-toggle {
+    right: 1.25rem;
+    top: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .case-study-theme-toggle {
+    right: 1.0rem;
+    top: 20px;
+  }
+}
+
+/* ─── CV COMPOSITE BUTTON ─── */
+.cv-btn-group {
+  display: inline-flex;
+  align-items: stretch;
+  height: 34px;
+  border: 1px solid var(--color-border);
+  background: #e5e5e5;
+  border-radius: 9999px !important;
+  overflow: hidden;
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.dark .cv-btn-group {
+  background: #1c1c21;
+}
+
+.cv-btn-view {
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--color-text);
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+  border-radius: 0 !important;
+}
+
+.cv-btn-view:hover {
+  background: #111114;
+  color: #ffffff;
+}
+
+.dark .cv-btn-view:hover {
+  background: #ffffff;
+  color: #09090b;
+}
+
+.cv-btn-download {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  color: var(--color-text);
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease, border-left-color 0.2s ease;
+  cursor: pointer;
+  border-left: 1px solid var(--color-border);
+  border-radius: 0 !important;
+}
+
+.cv-btn-download:hover {
+  background: #111114;
+  color: #ffffff;
+  border-left-color: transparent;
+}
+
+.dark .cv-btn-download:hover {
+  background: #ffffff;
+  color: #09090b;
+  border-left-color: transparent;
+}
+
+/* Light mode hero at-top transparent state overrides */
+nav.at-top .cv-btn-group {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+nav.at-top .cv-btn-view,
+nav.at-top .cv-btn-download {
+  color: #ffffff;
+}
+
+nav.at-top .cv-btn-download {
+  border-left-color: rgba(255, 255, 255, 0.3);
+}
+
+nav.at-top .cv-btn-view:hover,
+nav.at-top .cv-btn-download:hover {
+  background: #ffffff;
+  color: #09090b;
+  border-left-color: transparent;
 }

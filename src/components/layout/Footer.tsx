@@ -2,15 +2,40 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useLenis } from '@/providers/SmoothScrollProvider';
 
 export default function Footer() {
+  const pathname = usePathname();
+  const lenis = useLenis();
+  const isHomePage = pathname === '/';
+
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (isHomePage) {
+      e.preventDefault();
+      if (lenis) {
+        lenis.scrollTo(0, { duration: 1.2 });
+      } else {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }
+    }
+  };
+
   return (
     <footer className="footer-wrap">
       <div className="footer-divider" />
       <div className="footer-container">
         {/* Left: Logo & Name */}
         <div className="footer-logo-wrap">
-          <Link href="/" className="footer-logo-link" aria-label="Rajan Portfolio Home">
+          <Link
+            href="/"
+            onClick={handleLogoClick}
+            className="footer-logo-link"
+            aria-label="Rajan Portfolio Home"
+          >
             <svg
               width="24"
               height="20"

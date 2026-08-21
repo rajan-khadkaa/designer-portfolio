@@ -587,7 +587,7 @@ export default function CaseStudyClient({ study }: CaseStudyClientProps) {
       <main>
         {/* ── Hero image ── */}
         <div
-          className="bg-bg-3 w-full relative overflow-hidden h-[40vh] cursor-zoom-in"
+          className="bg-bg-2 w-full relative overflow-hidden h-[40vh] cursor-zoom-in"
           onClick={() => handleImageClick(study.heroImage)}
         >
           <Image
@@ -595,7 +595,7 @@ export default function CaseStudyClient({ study }: CaseStudyClientProps) {
             alt={`${study.title} hero`}
             fill
             priority
-            className="object-cover w-full mt-8"
+            className="object-cover w-full mt-0"
           />
           {/* <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-tag-bg)" /> */}
         </div>
