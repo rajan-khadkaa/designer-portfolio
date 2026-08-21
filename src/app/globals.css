@@ -561,7 +561,7 @@ nav.at-top .theme-toggle-new .moon-icon {
 .hero-headline {
   font-family: var(--font-display), sans-serif;
   font-weight: 800;
-  font-size: clamp(2rem, 5.5vw, 4.2rem);
+  font-size: clamp(2.5rem, 5.5vw, 4.2rem);
   letter-spacing: -0.03em;
   line-height: 1.05;
   color: var(--color-hero-text);
@@ -645,7 +645,7 @@ nav.at-top .theme-toggle-new .moon-icon {
 .section-title {
   font-family: var(--font-display), sans-serif;
   font-weight: 800;
-  font-size: clamp(1.4rem, 3.5vw, 2.4rem);
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
   letter-spacing: -0.025em;
   line-height: 1.1;
   color: var(--color-text);
@@ -756,7 +756,7 @@ nav.at-top .theme-toggle-new .moon-icon {
 .works-item-title {
   font-family: var(--font-display), sans-serif;
   font-weight: 800;
-  font-size: clamp(1.6rem, 4vw, 3rem);
+  font-size: clamp(2.1rem, 4vw, 3rem);
   letter-spacing: -0.03em;
   line-height: 1;
   color: #ffffff;
@@ -1067,7 +1067,7 @@ nav.at-top .theme-toggle-new .moon-icon {
 .process-row-title {
   font-family: var(--font-display), sans-serif;
   font-weight: 800;
-  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-size: clamp(1.7rem, 3vw, 2.2rem);
   letter-spacing: -0.025em;
   line-height: 1.1;
   color: var(--color-text);
@@ -1956,26 +1956,32 @@ footer p {
 
 @media (max-width: 1200px) {
   .sticky-back-btn {
-    position: static;
-    display: inline-flex;
+    position: fixed;
+    left: 1.25rem;
+    top: 24px;
+    width: 34px;
+    height: 34px;
+    border-radius: 100% !important;
+    padding: 0;
+    margin: 0;
+    display: flex;
     align-items: center;
-    gap: 8px;
-    width: auto;
-    height: auto;
-    border-radius: 100px !important;
-    padding: 8px 16px;
-    margin-top: 2.5rem;
-    margin-bottom: 2.0rem;
+    justify-content: center;
   }
 
   .sticky-back-btn .back-btn-text {
-    display: inline;
-    font-size: 0.8rem;
-    font-weight: 600;
+    display: none;
   }
 
   .sticky-back-btn:hover {
     transform: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .sticky-back-btn {
+    left: 1.0rem;
+    top: 20px;
   }
 }
 

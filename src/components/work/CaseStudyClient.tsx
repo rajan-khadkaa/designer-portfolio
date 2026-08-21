@@ -28,7 +28,7 @@ function RenderHeading({ section }: { section: SectionHeading }) {
     <ScrollReveal>
       <h2
         id={section.id}
-        className="font-display font-extrabold text-[clamp(1.25rem,2.8vw,1.75rem)] tracking-tight text-(--color-text) mt-14 mb-1 leading-[1.15] scroll-mt-20"
+        className="font-display font-extrabold text-[clamp(1.5rem,2.8vw,1.75rem)] tracking-tight text-(--color-text) mt-14 mb-1 leading-[1.15] scroll-mt-20"
       >
         {section.text}
       </h2>
@@ -587,7 +587,7 @@ export default function CaseStudyClient({ study }: CaseStudyClientProps) {
       <main>
         {/* ── Hero image ── */}
         <div
-          className="bg-bg-2 w-full relative overflow-hidden h-[40vh] cursor-zoom-in"
+          className="bg-bg-2 w-full relative overflow-hidden h-[20vh] lg:h-[40vh] cursor-zoom-in mb-6 lg:mb-0"
           onClick={() => handleImageClick(study.heroImage)}
         >
           <Image
@@ -629,7 +629,7 @@ export default function CaseStudyClient({ study }: CaseStudyClientProps) {
             <p className="text-[0.72rem] font-semibold tracking-[0.2em] uppercase text-text-muted mb-2.5">
               Case Study • {study.tag}
             </p>
-            <h1 className="font-display font-extrabold text-[clamp(2rem,5vw,3.2rem)] tracking-tight leading-[1.05] text-(--color-text) mb-8">
+            <h1 className="font-display font-extrabold text-[clamp(2.5rem,5vw,3.2rem)] tracking-tight leading-[1.05] text-(--color-text) mb-8">
               {study.title}
             </h1>
           </ScrollReveal>
