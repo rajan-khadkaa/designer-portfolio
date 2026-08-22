@@ -35,7 +35,7 @@ export default function Hero() {
         loop
         playsInline
       >
-        <source src="/portfolio resources/sky-vid.mp4" type="video/mp4" />
+        <source src="/portfolio resources/sky-cloud.mp4" type="video/mp4" />
       </video>
       <div id="hero-overlay" />
       <div className="hero-text-layer">
