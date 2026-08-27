@@ -15,7 +15,7 @@ export default function Contact() {
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState('');
-  const [form, setForm] = useState({ user_email: '', message: '' });
+  const [form, setForm] = useState({ email: '', message: '' });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -31,7 +31,7 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    if (!form.user_email.trim() || !form.message.trim()) {
+    if (!form.email.trim() || !form.message.trim()) {
       setError('Please fill in both fields.');
       return;
     }
@@ -43,7 +43,7 @@ export default function Contact() {
         formRef.current!,
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
       );
-      setForm({ user_email: '', message: '' });
+      setForm({ email: '', message: '' });
       setSent(true);
       setTimeout(() => setSent(false), 4000);
     } catch (err) {
@@ -117,8 +117,8 @@ export default function Contact() {
               <input
                 id="contact-email"
                 type="email"
-                name="user_email"
-                value={form.user_email}
+                name="email"
+                value={form.email}
                 onChange={handleChange}
                 placeholder="hello@example.com"
                 className="contact-input"
@@ -142,7 +142,7 @@ export default function Contact() {
             </div>
 
             {error && <p className="contact-error">{error}</p>}
-            {sent && <p className="contact-success">Message sent — I&apos;ll be in touch soon!</p>}
+            {sent && <p className="contact-success">Message sent! I&apos;ll be in touch soon.</p>}
 
             <PrimaryButton
               text={loading ? 'Sending…' : 'Send message'}

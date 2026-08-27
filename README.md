@@ -2,7 +2,7 @@
 
 A personal portfolio showcasing UI/UX case studies, design process, and skills.
 
-Live demo: [https://www.rajan-khadka.com.np/](https://www.rajan-khadka.com.np/)
+Live demo: [https://rajankhadka.vercel.app/](https://rajankhadka.vercel.app/)
 
 ## Overview
 
