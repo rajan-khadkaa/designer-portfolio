@@ -45,7 +45,7 @@ export default function Hero() {
         <p className="hero-eyebrow">Hi, I am Rajan</p>
         <h1 className="hero-headline">UI/UX Designer</h1>
         <p className="hero-sub-text">Designing from research to pixel.</p>
-        <div className="hero-cv-container min-w-fit">
+       {/* <div className="hero-cv-container min-w-fit">
           <div className="cv-btn-group hero-cv-group min-w-fit h-8 lg:h-10">
             <a
               href="/portfolio%20resources/Rajan-Khadka-Resume.pdf"
@@ -77,7 +77,7 @@ export default function Hero() {
               </svg>
             </a>
           </div>
-        </div>
+        </div>*/}
       </div>
 
       {showCanvas && <HeroCanvas />}
